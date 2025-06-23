@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian Bahasa Indonesia PERGUNU Situbondo</title>
+    <title>Ujian Online Bahasa Indonesia PERGUNU Situbondo</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --color-primary: #6a11cb;
-            --color-secondary: #2575fc;
-            --color-tertiary: #00c6fb;
-            --color-success: #4CAF50;
-            --color-error: #f44336;
-            --color-warning: #ff9800;
-            --color-info: #2196F3;
+            --color-primary: #2c3e50;
+            --color-secondary: #3498db;
+            --color-tertiary: #1abc9c;
+            --color-success: #27ae60;
+            --color-error: #e74c3c;
+            --color-warning: #f39c12;
+            --color-info: #2980b9;
             --color-dark: #1a1a2e;
             --color-light: #f8f9fa;
         }
@@ -139,6 +139,7 @@
         /* Form Styles */
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
 
         .form-control {
@@ -189,6 +190,24 @@
         .checkbox-option:checked + .checkbox-label {
             background: linear-gradient(to right, var(--color-secondary), var(--color-tertiary));
             box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+        }
+
+        /* Custom Checkbox for Terms */
+        .terms-checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .terms-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            accent-color: var(--color-secondary);
+        }
+        
+        .terms-text {
+            font-size: 14px;
         }
 
         /* Animation Classes */
@@ -350,7 +369,7 @@
             margin: 20px auto;
             position: relative;
             overflow: hidden;
-            background-image: url('https://raw.githubusercontent.com/pergunu/ujian-online-bahasa-indonesia/main/assets/images/certificate.png');
+            background-image: url('https://raw.githubusercontent.com/pergunu/ujian-online/main/assets/images/certificate.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -572,7 +591,7 @@
                 padding: 0 !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                background-image: url('https://raw.githubusercontent.com/pergunu/ujian-online-bahasa-indoonesia/main/assets/images/certificate.png') !important;
+                background-image: url('https://raw.githubusercontent.com/pergunu/ujian-online/main/assets/images/certificate.png') !important;
                 background-size: cover !important;
                 background-position: center !important;
                 background-repeat: no-repeat !important;
@@ -924,22 +943,64 @@
             color: #a94442;
             border: 1px solid #ebccd1;
         }
+
+        /* Error message styles */
+        .error-message {
+            color: var(--color-error);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Warning notification */
+        .warning-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-warning);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        /* Input error state */
+        .input-error {
+            border-color: var(--color-error) !important;
+            background: rgba(244, 67, 54, 0.1) !important;
+        }
+
+        /* Radio group error */
+        .radio-group-error {
+            outline: 2px solid var(--color-error);
+            border-radius: 8px;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
     <div id="particles-js"></div>
     <div id="celebration-particles"></div>
     
+    <!-- Warning notification for incomplete form -->
+    <div class="warning-notification" id="form-warning">
+        <i class="fas fa-exclamation-circle"></i> Harap lengkapi semua data peserta dengan benar sebelum melanjutkan!
+    </div>
+    
     <div class="container">
         <!-- Welcome Screen -->
         <div id="welcome-screen" class="card slide-in">
             <div class="header">
-                <img src="https://raw.githubusercontent.com/pergunu/ujian-online-bahasa-indonesia/main/assets/images/logo.png" alt="PERGUNU Logo" class="logo">
-                <h1>Ujian Bahasa Indonesia PERGUNU Situbondo</h1>
+                <img src="https://raw.githubusercontent.com/pergunu/ujian-online/main/assets/images/logo.png" alt="PERGUNU Logo" class="logo">
+                <h1>Ujian Online Bahasa Indonesia PERGUNU Situbondo</h1>
             </div>
             
             <div id="greeting-message">
-                <p id="greeting-text">Selamat datang di sistem ujian online Bahasa Indonesia PERGUNU Situbondo, Sistem tes kemampuan akademik untuk pelajar. Silakan masukkan kode login untuk melanjutkan.</p>
+                <p id="greeting-text">Selamat datang di sistem ujian online Bahasa Indonesia PERGUNU Situbondo. Silakan masukkan kode login untuk melanjutkan.</p>
             </div>
             
             <div class="form-group">
@@ -966,9 +1027,9 @@
                 <p>9. Keputusan panitia ujian bersifat mutlak dan tidak dapat diganggu gugat.</p>
             </div>
             
-            <div class="form-group">
-                <input type="checkbox" id="agree-terms" class="checkbox-option">
-                <label for="agree-terms" class="checkbox-label">Saya menyetujui</label>
+            <div class="terms-checkbox-container">
+                <input type="checkbox" id="agree-terms" class="terms-checkbox" required>
+                <span class="terms-text">Saya telah membaca dan menyetujui peraturan di atas</span>
             </div>
             
             <button id="continue-btn" class="btn" disabled>Lanjut Ikut Ujian</button>
@@ -982,6 +1043,7 @@
             <div class="form-group">
                 <label for="fullname" class="form-label">Nama Lengkap</label>
                 <input type="text" id="fullname" class="form-control" placeholder="Masukkan nama lengkap" pattern="[A-Za-z ]+" title="Hanya huruf diperbolehkan" required>
+                <div class="error-message" id="fullname-error">Nama lengkap harus diisi dan hanya boleh mengandung huruf</div>
             </div>
             
             <div class="form-group">
@@ -996,17 +1058,19 @@
             <div id="student-fields">
                 <div class="form-group">
                     <label for="school-name" class="form-label">Nama Sekolah</label>
-                    <input type="text" id="school-name" class="form-control" placeholder="Masukkan nama sekolah">
+                    <input type="text" id="school-name" class="form-control" placeholder="Masukkan nama sekolah" required>
+                    <div class="error-message" id="school-error">Nama sekolah harus diisi</div>
                 </div>
                 
                 <div class="form-group">
                     <label for="student-id" class="form-label">NIS (Nomor Induk Siswa)</label>
                     <input type="text" id="student-id" class="form-control" placeholder="Masukkan NIS" pattern="[0-9]+" title="Hanya angka diperbolehkan" required>
+                    <div class="error-message" id="nis-error">NIS harus diisi dan hanya boleh mengandung angka</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Tujuan Ikut Ujian</label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="purpose-radio-group">
                         <input type="radio" id="purpose-task" name="purpose" value="Tugas Sekolah" class="radio-option">
                         <label for="purpose-task" class="radio-label">Tugas Sekolah</label>
                         
@@ -1016,11 +1080,12 @@
                         <input type="radio" id="purpose-test" name="purpose" value="Tes dan Belajar" class="radio-option">
                         <label for="purpose-test" class="radio-label">Tes dan Belajar</label>
                     </div>
+                    <div class="error-message" id="purpose-error">Silakan pilih tujuan ikut ujian</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Tingkat Sekolah</label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="level-radio-group">
                         <input type="radio" id="level-elementary" name="level" value="SD" class="radio-option">
                         <label for="level-elementary" class="radio-label">SD</label>
                         
@@ -1030,6 +1095,7 @@
                         <input type="radio" id="level-senior" name="level" value="SMA/SMK" class="radio-option">
                         <label for="level-senior" class="radio-label">SMA/SMK</label>
                     </div>
+                    <div class="error-message" id="level-error">Silakan pilih tingkat sekolah</div>
                 </div>
             </div>
             
@@ -1040,6 +1106,7 @@
                     <div class="radio-group" id="grade-options">
                         <!-- Options will be populated by JavaScript -->
                     </div>
+                    <div class="error-message" id="grade-error">Silakan pilih kelas</div>
                 </div>
             </div>
             
@@ -1047,10 +1114,11 @@
             <div id="subject-selection" style="display: none;">
                 <div class="form-group">
                     <label class="form-label">Pilih Jenis Ujian</label>
-                    <div class="radio-group">
+                    <div class="radio-group" id="subject-radio-group">
                         <input type="radio" id="subject-indonesia" name="subject" value="Bahasa Indonesia" class="radio-option" checked>
                         <label for="subject-indonesia" class="radio-label">Bahasa Indonesia</label>
                     </div>
+                    <div class="error-message" id="subject-error">Silakan pilih jenis ujian</div>
                 </div>
             </div>
             
@@ -1167,30 +1235,6 @@
                                 <label class="admin-control-label">Durasi Ujian (menit)</label>
                                 <input type="number" id="exam-duration" class="admin-control-input" value="120" min="5" max="300">
                             </div>
-                            <div class="admin-control-group">
-                                <label class="admin-control-label">Jumlah Soal</label>
-                                <select id="question-count" class="admin-control-input">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="150">150</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="admin-control-group">
-                            <label class="admin-control-label">Acak Soal</label>
-                            <div class="admin-toggle">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="randomize-questions" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <span id="randomize-status">Aktif</span>
-                            </div>
                         </div>
                     </div>
                     
@@ -1250,6 +1294,17 @@
                                     <!-- Participant data will be loaded here -->
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="export-buttons">
+                            <button id="export-csv-btn" class="btn btn-info">
+                                <i class="fas fa-file-csv"></i> Export to CSV
+                            </button>
+                            <button id="export-json-btn" class="btn btn-info">
+                                <i class="fas fa-file-code"></i> Export to JSON
+                            </button>
+                            <button id="export-excel-btn" class="btn btn-success">
+                                <i class="fas fa-file-excel"></i> Export to Excel
+                            </button>
                         </div>
                     </div>
                     
@@ -1381,13 +1436,14 @@
     </div>
 
     <!-- Audio Elements -->
-    <audio id="button-sound" src="https://github.com/pergunu/ujian-online-bahasa-indonesia/raw/main/assets/audio/audiotombol.mp3" preload="auto"></audio>
-    <audio id="correct-answer-sound" src="https://github.com/pergunu/ujian-online-bahasa-indonesia/raw/main/assets/audio/jawabanbenar.mp3" preload="auto"></audio>
-    <audio id="wrong-answer-sound" src="https://github.com/pergunu/ujian-online-bahasa-indonesia/raw/main/assets/audio/jawabansalah.mp3" preload="auto"></audio>
-    <audio id="certificate-sound" src="https://github.com/pergunu/ujian-online-bahasa-indonesia/raw/main/assets/audio/applause.mp3" preload="auto"></audio>
-    <audio id="opening-sound" src="https://github.com/pergunu/ujian-online-bahasa-indonesia/raw/main/assets/audio/opening.mp3" preload="auto"></audio>
+    <audio id="button-sound" src="https://github.com/pergunu/pergunusmart/raw/main/assets/audio/audiotombol.mp3" preload="auto"></audio>
+    <audio id="correct-answer-sound" src="https://github.com/pergunu/pergunusmart/raw/main/assets/audio/jawabanbenar.mp3" preload="auto"></audio>
+    <audio id="wrong-answer-sound" src="https://github.com/pergunu/pergunusmart/raw/main/assets/audio/jawabansalah.mp3" preload="auto"></audio>
+    <audio id="certificate-sound" src="https://github.com/pergunu/pergunusmart/raw/main/assets/audio/applause.mp3" preload="auto"></audio>
+    <audio id="opening-sound" src="https://github.com/pergunu/ujian-online/raw/main/assets/audio/opening.mp3" preload="auto"></audio>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         // Global variables
         let currentScreen = 'welcome';
@@ -1399,7 +1455,11 @@
         let examTimer;
         let examTimeLeft = 120 * 60; // 120 minutes in seconds
         let selectedParticipants = [];
-        
+        let questionOrder = []; // Untuk menyimpan urutan soal yang diacak
+
+        // URL Google Apps Script untuk penyimpanan data
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuh1M0pS64v5e_HYGafcG7CD8RwCEf4FVroKnOT1DujxTdCnn6zTBeQvSwgmenspgN/exec';
+
         // Audio elements
         const buttonSound = document.getElementById('button-sound');
         const correctAnswerSound = document.getElementById('correct-answer-sound');
@@ -1411,16 +1471,14 @@
         const DEFAULT_LOGIN_CODE = '12345';
         const DEFAULT_ADMIN_PANEL_CODE = '65614222';
         
-        // Store participants data
-        let participantsData = JSON.parse(localStorage.getItem('participantsData')) || [];
+        // Store participants data in localStorage
+        let participantsData = JSON.parse(localStorage.getItem('pergunuParticipantsData')) || [];
         
-        // Store admin settings
-        let adminSettings = JSON.parse(localStorage.getItem('adminSettings')) || {
+        // Store admin settings in localStorage
+        let adminSettings = JSON.parse(localStorage.getItem('pergunuAdminSettings')) || {
             loginCode: DEFAULT_LOGIN_CODE,
             adminCode: DEFAULT_ADMIN_PANEL_CODE,
             examDuration: 120,
-            questionCount: 20,
-            randomizeQuestions: true,
             greetingMessage: "Selamat datang di sistem ujian online Bahasa Indonesia PERGUNU Situbondo. Silakan masukkan kode login untuk melanjutkan.",
             adminMessage: "Tidak ada informasi terbaru saat ini.",
             chairmanName: "Moh. Nuril Hudha, S.Pd., M.Si.",
@@ -1429,1854 +1487,378 @@
             }
         };
 
-        // Question bank structure with levels (Bahasa Indonesia only)
+        // Expanded Question bank for Bahasa Indonesia
         let QUESTION_BANK = {
             'SD': {
                 'Bahasa Indonesia': [
                     {
-                question: "Bacalah teks berikut!\n\nPagi itu, Rina bangun lebih awal. Ia segera mandi dan mengenakan seragam sekolah. Setelah sarapan, Rina berangkat ke sekolah dengan ayahnya. Di sekolah, Rina bertemu dengan teman-temannya. Mereka bermain bersama sebelum bel masuk berbunyi.\n\nApa yang dilakukan Rina setelah bangun pagi?",
-                options: [
-                    "A. Langsung bermain dengan teman-temannya",
-                    "B. Mandi dan mengenakan seragam sekolah",
-                    "C. Menonton televisi",
-                    "D. Tidur lagi",
-                    "E. Membaca buku"
-                ],
-                correctAnswer: 1,
-                explanation: "Pada teks disebutkan bahwa setelah bangun pagi, Rina 'segera mandi dan mengenakan seragam sekolah'. Jadi jawaban yang benar adalah B. Mandi dan mengenakan seragam sekolah"
-            },
-            {
-                question: "Kalimat manakah yang menggunakan tanda baca titik (.) dengan benar?",
-                options: [
-                    "A. Ibu membeli buah, di pasar.",
-                    "B. Adik sedang membaca buku.",
-                    "C. Ayah pergi. kerja pagi ini",
-                    "D. Kami pergi ke sekolah. bersama",
-                    "E. Dia suka. makan nasi goreng"
-                ],
-                correctAnswer: 1,
-                explanation: "Jawaban B benar karena titik digunakan di akhir kalimat yang sudah lengkap. Pilihan lain salah karena titik ditempatkan di tengah kalimat atau setelah koma."
-            },
-            {
-                question: "Kata manakah yang penulisannya benar?",
-                options: [
-                    "A. krupuk",
-                    "B. kueh",
-                    "C. sandiwara",
-                    "D. tehnik",
-                    "E. bisnis"
-                ],
-                correctAnswer: 2,
-                explanation: "Penulisan yang benar adalah 'sandiwara'. Pilihan lain salah seharusnya: 'kerupuk', 'kue', 'teknik', 'bisnis' (tanpa huruf h)."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Ibu membeli sayuran di pasar.'\n\nKata 'sayuran' dalam kalimat tersebut termasuk jenis kata...",
-                options: [
-                    "A. Kerja",
-                    "B. Sifat",
-                    "C. Benda",
-                    "D. Keterangan",
-                    "E. Ganti"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'sayuran' termasuk kata benda karena menunjukkan nama sesuatu yang dapat dibeli/dimiliki."
-            },
-            {
-                question: "Kalimat manakah yang merupakan kalimat tanya?",
-                options: [
-                    "A. Ayo kita pergi ke perpustakaan",
-                    "B. Buku itu sangat menarik",
-                    "C. Di mana letak sekolahmu?",
-                    "D. Hari ini hari Minggu",
-                    "E. Mereka sedang belajar"
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat tanya ditandai dengan kata tanya (di mana) dan tanda tanya di akhir kalimat. Hanya pilihan C yang memenuhi syarat ini."
-            },
-            {
-                question: "Bacalah paragraf berikut!\n\nKucingku bernama Milo. Bulunya berwarna putih dengan bercak hitam. Milo sangat lucu dan pintar. Setiap pagi, ia selalu mengeong minta makan. Aku sangat sayang pada Milo.\n\nIde pokok paragraf tersebut adalah...",
-                options: [
-                    "A. Kebiasaan makan Milo",
-                    "B. Ciri-ciri fisik Milo",
-                    "C. Kecerdasan kucing",
-                    "D. Kucing peliharaan bernama Milo",
-                    "E. Cara merawat kucing"
-                ],
-                correctAnswer: 3,
-                explanation: "Ide pokok paragraf adalah kucing peliharaan bernama Milo, diikuti ciri-ciri dan kebiasaannya. Pilihan lain hanya bagian dari penjelas saja."
-            },
-            {
-                question: "Kata 'tidak' pada kalimat 'Dia tidak pergi ke sekolah hari ini' termasuk jenis kata...",
-                options: [
-                    "A. Kerja",
-                    "B. Sifat",
-                    "C. Benda",
-                    "D. Keterangan",
-                    "E. Negasi"
-                ],
-                correctAnswer: 4,
-                explanation: "Kata 'tidak' termasuk kata negasi karena menyangkal/meniadakan makna kata kerja 'pergi'."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Ani dan Budi bermain bola di lapangan.'\n\nSubjek dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Ani",
-                    "B. Budi",
-                    "C. Ani dan Budi",
-                    "D. bermain bola",
-                    "E. di lapangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Subjek adalah pelaku dalam kalimat, yaitu 'Ani dan Budi' yang melakukan kegiatan bermain bola."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan huruf kapital dengan benar?",
-                options: [
-                    "A. kami pergi ke bandung minggu lalu",
-                    "B. Ayah bekerja di perusahaan Telkom",
-                    "C. ibu memasak nasi goreng",
-                    "D. dia adalah siswa kelas 5 sd",
-                    "E. kita harus menghormati orang Tua"
-                ],
-                correctAnswer: 1,
-                explanation: "Pilihan B benar karena: 'Ayah' sebagai awal kalimat kapital, 'Telkom' sebagai nama perusahaan kapital. Pilihan lain salah dalam penulisan kapital."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Ibu menyuruh adik membeli gula di warung.'\n\nPredikat dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Ibu",
-                    "B. menyuruh",
-                    "C. adik",
-                    "D. membeli",
-                    "E. di warung"
-                ],
-                correctAnswer: 1,
-                explanation: "Predikat adalah bagian yang menyatakan perbuatan subjek, yaitu 'menyuruh' (apa yang dilakukan Ibu)."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nLiburan semester lalu, keluarga kami pergi ke Yogyakarta. Kami mengunjungi Candi Borobudur dan Malioboro. Ayah menjelaskan sejarah candi itu. Ibu membeli oleh-oleh batik. Sungguh pengalaman yang menyenangkan.\n\nTeks tersebut termasuk jenis...",
-                options: [
-                    "A. Laporan",
-                    "B. Cerita fiksi",
-                    "C. Deskripsi",
-                    "D. Eksposisi",
-                    "E. Narasi"
-                ],
-                correctAnswer: 4,
-                explanation: "Teks tersebut menceritakan pengalaman pribadi secara kronologis, sehingga termasuk jenis narasi."
-            },
-            {
-                question: "Kata manakah yang merupakan kata dasar?",
-                options: [
-                    "A. bermain",
-                    "B. pelari",
-                    "C. makanan",
-                    "D. pakaian",
-                    "E. baca"
-                ],
-                correctAnswer: 4,
-                explanation: "Kata dasar adalah kata yang belum mendapat imbuhan. 'Baca' adalah kata dasar, sementara lainnya sudah mendapat imbuhan (ber-, -an, pe-, -an)."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Kakek membaca koran di teras rumah.'\n\nKata 'di teras' dalam kalimat tersebut menunjukkan...",
-                options: [
-                    "A. Waktu",
-                    "B. Tempat",
-                    "C. Cara",
-                    "D. Alasan",
-                    "E. Tujuan"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'di teras' menunjukkan tempat di mana kegiatan membaca dilakukan, sehingga termasuk keterangan tempat."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata depan 'pada' dengan benar?",
-                options: [
-                    "A. Buku itu berada pada meja",
-                    "B. Pada hari Minggu kami libur",
-                    "C. Ibu menyimpan piring pada lemari",
-                    "D. Kami pergi pada pasar",
-                    "E. Ayah bekerja pada kantor"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata depan 'pada' digunakan untuk menyatakan waktu. Untuk tempat, seharusnya menggunakan 'di' (di meja, di lemari, di pasar, di kantor)."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Kucing itu melompat dengan lincah.'\n\nKata 'dengan lincah' dalam kalimat tersebut termasuk...",
-                options: [
-                    "A. Subjek",
-                    "B. Predikat",
-                    "C. Objek",
-                    "D. Keterangan",
-                    "E. Pelengkap"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'dengan lincah' menjelaskan cara kucing melompat, sehingga termasuk keterangan cara."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nProses fotosintesis pada tumbuhan membutuhkan sinar matahari. Daun menyerap cahaya matahari dan karbon dioksida dari udara. Dengan bantuan klorofil, tumbuhan menghasilkan oksigen dan makanan untuk pertumbuhannya.\n\nTeks tersebut termasuk jenis...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Eksposisi",
-                    "C. Narasi",
-                    "D. Persuasi",
-                    "E. Argumentasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Teks tersebut menjelaskan proses fotosintesis secara informatif, sehingga termasuk teks eksposisi."
-            },
-            {
-                question: "Kata manakah yang penulisannya sesuai EYD?",
-                options: [
-                    "A. sistim",
-                    "B. apotik",
-                    "C. kualitas",
-                    "D. jaman",
-                    "E. nasehat"
-                ],
-                correctAnswer: 2,
-                explanation: "Penulisan yang benar adalah 'kualitas'. Pilihan lain seharusnya: sistem, apotek, zaman, nasihat."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Meskipun hujan deras, ia tetap pergi ke sekolah.'\n\nKata 'meskipun' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Pertentangan",
-                    "D. Tujuan",
-                    "E. Syarat"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'meskipun' menunjukkan pertentangan antara kondisi hujan deras dengan tindakan pergi ke sekolah."
-            },
-            {
-                question: "Kalimat manakah yang merupakan kalimat perintah?",
-                options: [
-                    "A. Kapan kamu akan pulang?",
-                    "B. Tolong ambilkan buku itu!",
-                    "C. Kami sedang belajar kelompok",
-                    "D. Rumahnya sangat bersih",
-                    "E. Mereka pergi ke museum"
-                ],
-                correctAnswer: 1,
-                explanation: "Kalimat perintah ditandai dengan kata 'tolong' dan tanda seru di akhir kalimat. Hanya pilihan B yang memenuhi syarat ini."
-            },
-            {
-                question: "Bacalah paragraf berikut!\n\nPohon kelapa sangat bermanfaat bagi manusia. Batangnya dapat digunakan untuk bahan bangunan. Daunnya bisa dibuat anyaman. Buahnya mengandung air yang menyegarkan. Bahkan lidi dan sabutnya pun bisa dimanfaatkan.\n\nKalimat utama paragraf tersebut adalah...",
-                options: [
-                    "A. Pohon kelapa sangat bermanfaat bagi manusia",
-                    "B. Batangnya dapat digunakan untuk bahan bangunan",
-                    "C. Daunnya bisa dibuat anyaman",
-                    "D. Buahnya mengandung air yang menyegarkan",
-                    "E. Bahkan lidi dan sabutnya pun bisa dimanfaatkan"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat utama adalah kalimat pertama yang menyatakan bahwa pohon kelapa sangat bermanfaat, diikuti penjelasan manfaat-manfaatnya."
-            },
-            {
-                question: "Kata 'berlari-lari' dalam kalimat 'Anak-anak berlari-lari di lapangan' termasuk kata kerja...",
-                options: [
-                    "A. Transitif",
-                    "B. Intransitif",
-                    "C. Pasif",
-                    "D. Imperatif",
-                    "E. Reflektif"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'berlari-lari' termasuk kata kerja intransitif karena tidak memerlukan objek langsung."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Buku yang dibeli kemarin sangat menarik.'\n\nKlausa relatif dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Buku",
-                    "B. yang dibeli kemarin",
-                    "C. sangat menarik",
-                    "D. dibeli kemarin",
-                    "E. buku yang dibeli"
-                ],
-                correctAnswer: 1,
-                explanation: "Klausa relatif adalah 'yang dibeli kemarin' yang berfungsi menerangkan kata 'buku'."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'apabila' dengan benar?",
-                options: [
-                    "A. Apabila besok hujan, kami tidak jadi piknik",
-                    "B. Kami sarapan apabila pagi hari",
-                    "C. Bunga itu indah apabila warna merah",
-                    "D. Dia selalu tersenyum apabila orang lain",
-                    "E. Buku itu tebal apabila sampulnya"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'apabila' digunakan untuk menyatakan syarat, seperti pada pilihan A. Pilihan lain tidak logis atau salah penggunaan."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Ibu membelikan adik sepatu baru.'\n\nObjek dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Ibu",
-                    "B. membelikan",
-                    "C. adik",
-                    "D. sepatu baru",
-                    "E. adik sepatu baru"
-                ],
-                correctAnswer: 3,
-                explanation: "Objek adalah 'sepatu baru' yang merupakan benda yang dibelikan."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nHarimau adalah hewan karnivora yang hidup di hutan. Tubuhnya besar dengan garis-garis hitam di bulu oranye. Harimau memiliki cakar yang tajam untuk berburu mangsa. Hewan ini termasuk spesies yang dilindungi karena hampir punah.\n\nTeks tersebut termasuk jenis teks...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Teks tersebut menggambarkan ciri-ciri harimau secara rinci, sehingga termasuk teks deskripsi."
-            },
-            {
-                question: "Kata manakah yang merupakan kata ulang?",
-                options: [
-                    "A. rumah",
-                    "B. berjalan",
-                    "C. pepohonan",
-                    "D. kucing-kucingan",
-                    "E. penyanyi"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'kucing-kucingan' adalah kata ulang karena ada pengulangan kata dasar 'kucing' dengan akhiran '-an'."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Kami belajar dengan tekun agar lulus ujian.'\n\nKata 'agar' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'agar' menunjukkan tujuan dari kegiatan belajar, yaitu 'lulus ujian'."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'bahwa' dengan benar?",
-                options: [
-                    "A. Bahwa hari ini sangat panas",
-                    "B. Ibu mengatakan bahwa ayah akan pulang",
-                    "C. Kami pergi bahwa liburan sekolah",
-                    "D. Buku itu bahwa sangat tebal",
-                    "E. Dia senang bahwa bermain bola"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'bahwa' digunakan untuk memperkenalkan anak kalimat yang menjadi objek verba 'mengatakan'. Hanya pilihan B yang benar."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Paman membawa oleh-oleh dari Surabaya.'\n\nKata 'dari Surabaya' dalam kalimat tersebut termasuk...",
-                options: [
-                    "A. Subjek",
-                    "B. Predikat",
-                    "C. Objek",
-                    "D. Keterangan",
-                    "E. Pelengkap"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'dari Surabaya' menjelaskan asal oleh-oleh, sehingga termasuk keterangan tempat."
-            },
-            {
-                question: "Bacalah teks berikut!\n\n(1) Pertama, siapkan bahan-bahannya. (2) Kemudian, campurkan tepung dan telur. (3) Setelah itu, tambahkan susu sedikit demi sedikit. (4) Terakhir, panggang adonan selama 30 menit.\n\nTeks tersebut termasuk jenis teks...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Narasi",
-                    "C. Prosedur",
-                    "D. Laporan",
-                    "E. Eksposisi"
-                ],
-                correctAnswer: 2,
-                explanation: "Teks tersebut menjelaskan langkah-langkah membuat sesuatu secara berurutan, sehingga termasuk teks prosedur."
-            },
-            {
-                question: "Kata manakah yang merupakan kata sifat?",
-                options: [
-                    "A. lari",
-                    "B. cantik",
-                    "C. buku",
-                    "D. makan",
-                    "E. sekolah"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'cantik' termasuk kata sifat karena menerangkan sifat atau keadaan sesuatu."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Karena sakit, Andi tidak masuk sekolah.'\n\nKata 'karena' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'karena' menunjukkan sebab ('sakit') yang mengakibatkan 'tidak masuk sekolah'."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'tetapi' dengan benar?",
-                options: [
-                    "A. Hari panas tetapi kami tetap bermain",
-                    "B. Tetapi hari ini sangat cerah",
-                    "C. Kami pergi tetapi taman bermain",
-                    "D. Buku itu tebal tetapi sampulnya",
-                    "E. Ibu memasak tetapi nasi goreng"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'tetapi' digunakan untuk menunjukkan pertentangan antara dua klausa. Hanya pilihan A yang benar."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Guru itu menjelaskan materi dengan jelas.'\n\nKata 'dengan jelas' dalam kalimat tersebut termasuk...",
-                options: [
-                    "A. Subjek",
-                    "B. Predikat",
-                    "C. Objek",
-                    "D. Keterangan",
-                    "E. Pelengkap"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'dengan jelas' menjelaskan cara guru menjelaskan, sehingga termasuk keterangan cara."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nMenjaga kebersihan lingkungan sangat penting. Lingkungan yang bersih membuat kita sehat dan nyaman. Selain itu, lingkungan bersih juga mencegah berbagai penyakit. Mari kita jaga kebersihan lingkungan mulai dari diri sendiri.\n\nTeks tersebut termasuk jenis teks...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Narasi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 4,
-                explanation: "Teks tersebut bertujuan mengajak pembaca menjaga kebersihan lingkungan, sehingga termasuk teks persuasi."
-            },
-            {
-                question: "Kata manakah yang merupakan kata ganti orang?",
-                options: [
-                    "A. ini",
-                    "B. sana",
-                    "C. mereka",
-                    "D. begitu",
-                    "E. sendiri"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'mereka' termasuk kata ganti orang ketiga jamak."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Jika kamu rajin belajar, nilai ujianmu akan bagus.'\n\nKata 'jika' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'jika' menunjukkan syarat ('rajin belajar') yang harus dipenuhi untuk mendapatkan hasil ('nilai bagus')."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'sehingga' dengan benar?",
-                options: [
-                    "A. Dia belajar sehingga lulus ujian",
-                    "B. Kami pergi sehingga taman bermain",
-                    "C. Buku itu tebal sehingga sampulnya",
-                    "D. Ibu memasak sehingga nasi goreng",
-                    "E. Hari hujan sehingga jalanan licin"
-                ],
-                correctAnswer: 4,
-                explanation: "Kata 'sehingga' menunjukkan akibat ('jalanan licin') dari suatu keadaan ('hari hujan'). Hanya pilihan E yang benar."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Kakak menyimpan uang di celengan.'\n\nKata 'di celengan' dalam kalimat tersebut termasuk...",
-                options: [
-                    "A. Subjek",
-                    "B. Predikat",
-                    "C. Objek",
-                    "D. Keterangan",
-                    "E. Pelengkap"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'di celengan' menjelaskan tempat menyimpan uang, sehingga termasuk keterangan tempat."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nPasar tradisional masih banyak dikunjungi masyarakat. Di sana, pembeli bisa menawar harga barang. Berbagai kebutuhan sehari-hari tersedia dengan harga terjangkau. Suasana di pasar tradisional juga lebih ramai dan bersahabat dibanding pasar modern.\n\nIde pokok paragraf tersebut adalah...",
-                options: [
-                    "A. Kelebihan pasar tradisional",
-                    "B. Cara menawar di pasar",
-                    "C. Harga barang di pasar",
-                    "D. Perbandingan pasar tradisional dan modern",
-                    "E. Kebutuhan sehari-hari di pasar"
-                ],
-                correctAnswer: 0,
-                explanation: "Ide pokok paragraf adalah kelebihan pasar tradisional yang dijelaskan dalam kalimat-kalimat berikutnya."
-            },
-            {
-                question: "Kata manakah yang merupakan kata bilangan?",
-                options: [
-                    "A. cepat",
-                    "B. tiga",
-                    "C. di sana",
-                    "D. membaca",
-                    "E. cantik"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'tiga' termasuk kata bilangan karena menyatakan jumlah."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Dia berangkat lebih awal supaya tidak terlambat.'\n\nKata 'supaya' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'supaya' menunjukkan tujuan dari keberangkatan lebih awal, yaitu 'tidak terlambat'."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'ketika' dengan benar?",
-                options: [
-                    "A. Ketika hari hujan, kami tidak jadi bermain",
-                    "B. Kami sarapan ketika pagi hari",
-                    "C. Bunga itu indah ketika warna merah",
-                    "D. Dia selalu tersenyum ketika orang lain",
-                    "E. Buku itu tebal ketika sampulnya"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'ketika' digunakan untuk menyatakan waktu. Hanya pilihan A yang menggunakan kata 'ketika' dengan benar untuk menunjukkan waktu ('hari hujan')."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Ibu membuatkan ayah kopi panas.'\n\nObjek dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Ibu",
-                    "B. membuatkan",
-                    "C. ayah",
-                    "D. kopi panas",
-                    "E. ayah kopi panas"
-                ],
-                correctAnswer: 3,
-                explanation: "Objek adalah 'kopi panas' yang merupakan benda yang dibuatkan."
-            },
-            {
-                question: "Bacalah teks berikut!\n\n(1) Siapkan dua lembar kertas berwarna. (2) Lipat kertas menjadi dua bagian sama besar. (3) Gunting bagian tepi sesuai pola yang diinginkan. (4) Buka lipatan kertas dengan hati-hati. (5) Hiasan kertas siap digantung.\n\nTeks tersebut menjelaskan tentang...",
-                options: [
-                    "A. Cara membuat hiasan dari kertas",
-                    "B. Jenis-jenis kertas berwarna",
-                    "C. Manfaat kertas lipat",
-                    "D. Sejarah seni melipat kertas",
-                    "E. Alat-alat untuk membuat kerajinan"
-                ],
-                correctAnswer: 0,
-                explanation: "Teks tersebut menjelaskan langkah-langkah membuat hiasan dari kertas secara berurutan."
-            },
-            {
-                question: "Kata manakah yang merupakan kata hubung?",
-                options: [
-                    "A. meja",
-                    "B. dan",
-                    "C. cepat",
-                    "D. berlari",
-                    "E. merah"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'dan' termasuk kata hubung (konjungsi) yang digunakan untuk menghubungkan kata atau kalimat."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Karena rajin belajar, nilai Rina sangat bagus.'\n\nKata 'karena' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'karena' menunjukkan sebab ('rajin belajar') yang mengakibatkan 'nilai bagus'."
-            },
-            {
-                question: "Kalimat manakah yang menggunakan kata 'atau' dengan benar?",
-                options: [
-                    "A. Kami akan pergi atau Jakarta",
-                    "B. Buku itu tebal atau sampulnya",
-                    "C. Kamu mau teh atau kopi?",
-                    "D. Ibu memasak atau nasi goreng",
-                    "E. Hari ini panas atau cerah"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'atau' digunakan untuk menyatakan pilihan. Hanya pilihan C yang menggunakan kata 'atau' dengan benar untuk memilih antara teh atau kopi."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Adik minum susu dengan cepat.'\n\nKata 'dengan cepat' dalam kalimat tersebut termasuk...",
-                options: [
-                    "A. Subjek",
-                    "B. Predikat",
-                    "C. Objek",
-                    "D. Keterangan",
-                    "E. Pelengkap"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'dengan cepat' menjelaskan cara adik minum susu, sehingga termasuk keterangan cara."
-            },
-            {
-                question: "Bacalah teks berikut!\n\nKucing adalah hewan peliharaan yang populer. Tubuhnya lentur dan suka membersihkan diri dengan menjilati bulunya. Kucing memiliki pendengaran dan penglihatan yang tajam. Hewan ini termasuk karnivora yang suka memakan ikan dan daging.\n\nTeks tersebut termasuk jenis teks...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Teks tersebut menggambarkan ciri-ciri kucing secara rinci, sehingga termasuk teks deskripsi."
-            },
-            {
-                question: "Kata manakah yang merupakan kata seru?",
-                options: [
-                    "A. wah",
-                    "B. di sana",
-                    "C. membaca",
-                    "D. pelan",
-                    "E. tiga"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'wah' termasuk kata seru yang mengungkapkan perasaan."
-            },
-            {
-                question: "Bacalah kalimat berikut!\n\n'Meskipun kecil, semangatnya sangat besar.'\n\nKata 'meskipun' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Pertentangan",
-                    "D. Tujuan",
-                    "E. Syarat"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'meskipun' menunjukkan pertentangan antara 'kecil' dengan 'semangat besar'."
-            },
-            {
-                question: "Kalimat manakah yang merupakan kalimat berita?",
-                options: [
-                    "A. Kapan kamu akan pulang?",
-                    "B. Tolong ambilkan buku itu!",
-                    "C. Kemarin kami pergi ke museum",
-                    "D. Apakah kamu sudah makan?",
-                    "E. Ayo kita bermain bersama!"
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat berita memberikan informasi tentang suatu peristiwa. Hanya pilihan C yang merupakan kalimat berita."
-            }
+                        question: "Kalimat yang menggunakan tanda baca titik dengan benar adalah...",
+                        options: [
+                            "A. Ibu membeli buah di pasar.",
+                            "B. Ibu membeli buah di pasar?",
+                            "C. Ibu membeli buah di pasar!",
+                            "D. Ibu membeli buah di pasar,",
+                            "E. Ibu membeli buah di pasar:"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Tanda titik digunakan untuk mengakhiri kalimat pernyataan yang bukan pertanyaan atau seruan."
+                    },
+                    {
+                        question: "Kata yang penulisannya benar adalah...",
+                        options: [
+                            "A. praktek",
+                            "B. nasehat",
+                            "C. sistem",
+                            "D. analisa",
+                            "E. apotik"
+                        ],
+                        correctAnswer: 2,
+                        explanation: "Kata 'sistem' sudah merupakan bentuk baku dalam bahasa Indonesia. Kata lainnya yang benar adalah: praktik, nasihat, analisis, apotek."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata depan 'di' dengan benar adalah...",
+                        options: [
+                            "A. Buku itu ditaruh di meja.",
+                            "B. Ibu pergi di pasar.",
+                            "C. Adik bermain di rumah temannya.",
+                            "D. Ayah bekerja di kantor.",
+                            "E. Kami belajar di sekolah."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kata depan 'di' digunakan untuk menunjukkan tempat. Pada pilihan A, 'di meja' menunjukkan tempat buku ditaruh."
+                    },
+                    {
+                        question: "Kalimat yang mengandung kata berimbuhan meN- yang tepat adalah...",
+                        options: [
+                            "A. Ibu memotong sayuran di dapur.",
+                            "B. Adik menulis buku pelajaran.",
+                            "C. Ayah memarkir mobil di garasi.",
+                            "D. Kakak menyapu halaman rumah.",
+                            "E. Kami menonton film di bioskop."
+                        ],
+                        correctAnswer: 3,
+                        explanation: "Kata 'menyapu' menggunakan imbuhan meN- yang tepat. Kata dasar 'sapu' mendapat imbuhan meN- menjadi 'menyapu' (meN- + sapu → menyapu)."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'apakah' dengan benar adalah...",
+                        options: [
+                            "A. Apakah kamu sudah makan?",
+                            "B. Apakah yang kamu lakukan tadi?",
+                            "C. Apakah kamu pergi ke sekolah?",
+                            "D. Apakah buku itu milikmu?",
+                            "E. Apakah adikmu sudah pulang?"
+                        ],
+                        correctAnswer: 1,
+                        explanation: "Kata 'apakah' digunakan untuk menanyakan sesuatu secara netral. Pada pilihan B, 'apakah' digunakan untuk menanyakan aktivitas."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'yang' dengan tepat adalah...",
+                        options: [
+                            "A. Buku yang dibeli ibu sangat tebal.",
+                            "B. Anak yang rajin belajar akan berhasil.",
+                            "C. Rumah yang besar itu milik paman.",
+                            "D. Tas yang berwarna merah itu bagus.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'yang' dengan tepat. Kata 'yang' berfungsi sebagai penghubung dalam kalimat untuk menerangkan kata sebelumnya."
+                    },
+                    {
+                        question: "Kata yang termasuk kata kerja adalah...",
+                        options: [
+                            "A. membaca",
+                            "B. indah",
+                            "C. cepat",
+                            "D. biru",
+                            "E. besar"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kata 'membaca' adalah kata kerja (verba) karena menunjukkan suatu aktivitas. Kata lainnya adalah kata sifat (adjektif)."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'atau' dengan tepat adalah...",
+                        options: [
+                            "A. Kamu mau minum teh atau kopi?",
+                            "B. Aku tidak suka makan atau minum.",
+                            "C. Dia belum memutuskan akan pergi atau tinggal.",
+                            "D. Kita bisa belajar di rumah atau di perpustakaan.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'atau' dengan tepat. Kata 'atau' digunakan untuk menyatakan pilihan atau alternatif."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'tetapi' dengan tepat adalah...",
+                        options: [
+                            "A. Dia pandai tetapi malas belajar.",
+                            "B. Aku ingin pergi tetapi hujan turun.",
+                            "C. Rumahnya kecil tetapi nyaman.",
+                            "D. Buku itu tebal tetapi menarik.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'tetapi' dengan tepat. Kata 'tetapi' digunakan untuk menyatakan pertentangan antara dua hal."
+                    },
+                    {
+                        question: "Kalimat yang merupakan kalimat perintah adalah...",
+                        options: [
+                            "A. Tolong ambilkan buku itu!",
+                            "B. Apakah kamu sudah makan?",
+                            "C. Ibu pergi ke pasar tadi pagi.",
+                            "D. Adik sedang bermain di halaman.",
+                            "E. Kami akan pergi liburan besok."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Tolong ambilkan buku itu!' adalah kalimat perintah karena meminta orang lain untuk melakukan sesuatu."
+                    }
                 ]
             },
             'SMP': {
                 'Bahasa Indonesia': [
                     {
-                question: "Teks berikut digunakan untuk menjawab soal nomor 1-3.<br><br>'Kebersihan lingkungan sekolah merupakan tanggung jawab bersama. Setiap warga sekolah harus menjaga kebersihan dengan tidak membuang sampah sembarangan. Selain itu, kegiatan kerja bakti secara rutin perlu dilakukan untuk memastikan lingkungan tetap bersih dan nyaman.'<br><br>Ide pokok paragraf pertama adalah...",
-                options: [
-                    "A. Pentingnya kerja bakti di sekolah",
-                    "B. Tanggung jawab bersama dalam kebersihan sekolah",
-                    "C. Larangan membuang sampah sembarangan",
-                    "D. Kenyamanan lingkungan sekolah",
-                    "E. Jadwal rutin kebersihan sekolah"
-                ],
-                correctAnswer: 1,
-                explanation: "Ide pokok paragraf pertama adalah tentang tanggung jawab bersama dalam menjaga kebersihan sekolah, seperti yang disebutkan di kalimat pertama."
-            },
-            {
-                question: "Berdasarkan teks pada soal nomor 1, kalimat utama paragraf tersebut terdapat pada...",
-                options: [
-                    "A. Kalimat pertama",
-                    "B. Kalimat kedua",
-                    "C. Kalimat ketiga",
-                    "D. Kalimat pertama dan kedua",
-                    "E. Kalimat kedua dan ketiga"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat utama terdapat pada kalimat pertama karena mengandung ide pokok paragraf, sedangkan kalimat berikutnya merupakan penjelas."
-            },
-            {
-                question: "Kata 'nyaman' pada teks soal nomor 1 memiliki makna...",
-                options: [
-                    "A. Bersih",
-                    "B. Rapi",
-                    "C. Enak dilihat",
-                    "D. Menyenangkan",
-                    "E. Teratur"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata 'nyaman' dalam konteks tersebut bermakna menyenangkan atau memberikan rasa tentram."
-            },
-            {
-                question: "Cermati kalimat berikut!<br>'Para siswa-siswa sedang melakukan praktikum di laboratorium.'<br>Perbaikan yang tepat untuk kalimat tersebut adalah...",
-                options: [
-                    "A. Para siswa sedang melakukan praktikum di laboratorium.",
-                    "B. Siswa-siswa sedang melakukan praktikum di laboratorium.",
-                    "C. Para siswa-siswa sedang melakukan praktikum di lab.",
-                    "D. Para siswa sedang melakukan praktikum di lab.",
-                    "E. Siswa sedang melakukan praktikum di laboratorium."
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'para' sudah menunjukkan jamak, sehingga tidak perlu lagi menggunakan 'siswa-siswa'. Bentuk yang tepat adalah 'para siswa'."
-            },
-            {
-                question: "Perhatikan paragraf berikut!<br>'Pohon mangga di halaman sekolah sudah berbuah lebat. (1) Buahnya berwarna hijau kekuningan. (2) Rasanya manis sedikit asam. (3) Banyak siswa yang mencoba memetiknya. (4) Kepala sekolah akhirnya memerintahkan untuk memetik semua buah tersebut.'<br>Kalimat yang menunjukkan hubungan sebab akibat adalah...",
-                options: [
-                    "A. 1 dan 2",
-                    "B. 2 dan 3",
-                    "C. 3 dan 4",
-                    "D. 1 dan 4",
-                    "E. 2 dan 4"
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat 3 (sebab: banyak siswa mencoba memetik) dan 4 (akibat: kepala sekolah memerintahkan memetik semua buah) menunjukkan hubungan sebab akibat."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Penelitian terbaru menunjukkan bahwa kebiasaan membaca dapat meningkatkan kecerdasan emosional seseorang. Membaca, terutama karya fiksi, membantu seseorang memahami perasaan orang lain.'<br>Simpulan yang tepat untuk teks tersebut adalah...",
-                options: [
-                    "A. Membaca hanya bermanfaat untuk kecerdasan emosional",
-                    "B. Karya fiksi lebih baik daripada nonfiksi",
-                    "C. Kebiasaan membaca berpengaruh positif terhadap pemahaman emosi",
-                    "D. Semua orang harus membaca karya fiksi",
-                    "E. Penelitian tentang membaca masih terus berkembang"
-                ],
-                correctAnswer: 2,
-                explanation: "Simpulan yang tepat adalah bahwa kebiasaan membaca (khususnya fiksi) berpengaruh positif terhadap pemahaman emosi orang lain."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kepada semua peserta didik diharapkan untuk hadir pada acara peringatan Hari Pendidikan Nasional besok pagi.'<br>Kalimat tersebut termasuk jenis kalimat...",
-                options: [
-                    "A. Perintah",
-                    "B. Ajakan",
-                    "C. Permintaan",
-                    "D. Larangan",
-                    "E. Berita"
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat tersebut termasuk kalimat permintaan karena menggunakan kata 'diharapkan' yang bersifat meminta dengan sopan."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pantai Parangtritis memiliki pemandangan yang sangat indah. (1) Ombaknya yang besar menarik para peselancar. (2) Pasir pantainya yang hitam menjadi ciri khas. (3) Banyak wisatawan yang berkunjung setiap akhir pekan. (4)'<br>Kalimat yang mengandung opini adalah...",
-                options: [
-                    "A. 1",
-                    "B. 2",
-                    "C. 3",
-                    "D. 4",
-                    "E. Tidak ada"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat 1 mengandung opini karena kata 'sangat indah' merupakan pendapat subjektif penulis."
-            },
-            {
-                question: "Perhatikan dialog berikut!<br>Andi: 'Kamu sudah mengerjakan tugas bahasa Indonesia?'<br>Budi: 'Belum, aku masih bingung dengan instruksinya.'<br>Andi: '...'<br>Kalimat yang tepat untuk melengkapi dialog tersebut adalah...",
-                options: [
-                    "A. Ayo, cepat kerjakan sekarang!",
-                    "B. Kalau begitu, kamu pasti akan mendapat nilai jelek",
-                    "C. Mau aku bantu menjelaskan maksud soalnya?",
-                    "D. Tugasnya sangat mudah, kok",
-                    "E. Kamu memang selalu lambat"
-                ],
-                correctAnswer: 2,
-                explanation: "Respons yang paling tepat adalah menawarkan bantuan karena Andi menunjukkan sikap yang solutif terhadap masalah Budi."
-            },
-            {
-                question: "Perhatikan kalimat-kalimat berikut!<br>(1) Akhirnya, kami memutuskan untuk pulang lebih awal.<br>(2) Cuaca semakin memburuk dengan angin yang kencang.<br>(3) Kami sedang berkemah di tepi hutan.<br>(4) Hujan mulai turun dengan derasnya.<br>Urutan yang tepat untuk membentuk paragraf narasi adalah...",
-                options: [
-                    "A. 3-2-4-1",
-                    "B. 3-4-2-1",
-                    "C. 2-3-4-1",
-                    "D. 1-3-2-4",
-                    "E. 4-3-2-1"
-                ],
-                correctAnswer: 1,
-                explanation: "Urutan yang logis dimulai dari setting (berkemah), kemudian perubahan cuaca (hujan, angin kencang), dan diakhiri dengan keputusan pulang."
-            },
-            {
-                question: "Bacalah kutipan cerpen berikut!<br>'Langit mulai berwarna jingga ketika Rina berjalan pulang sendirian. Suara jangkrik mulai terdengar dari semak-semak. Ia mempercepat langkahnya, merasakan ada yang mengikutinya dari belakang.'<br>Latar waktu kutipan cerpen tersebut adalah...",
-                options: [
-                    "A. Pagi hari",
-                    "B. Siang hari",
-                    "C. Sore hari",
-                    "D. Malam hari",
-                    "E. Tengah malam"
-                ],
-                correctAnswer: 2,
-                explanation: "Latar waktu adalah sore hari ditandai dengan 'langit berwarna jingga' yang merupakan ciri khas senja."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Dalam rangka memperingati Hari Sumpah Pemuda, OSIS akan menyelenggarakan berbagai lomba antar kelas seperti lomba debat, pidato, dan menulis essay.'<br>Kesalahan penulisan pada kalimat tersebut adalah...",
-                options: [
-                    "A. Penyulisan 'OSIS' seharusnya 'Osis'",
-                    "B. Penyulisan 'Hari Sumpah Pemuda' seharusnya tidak kapital",
-                    "C. Kata 'essay' seharusnya 'esai'",
-                    "D. Penggunaan kata 'dalam rangka' tidak tepat",
-                    "E. Tidak ada kesalahan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kesalahan terdapat pada penulisan 'essay' yang seharusnya 'esai' sesuai dengan KBBI."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pemerintah mengimbau masyarakat untuk menghemat penggunaan air bersih. Kekeringan yang melanda beberapa daerah menyebabkan pasokan air berkurang. Jika tidak dihemat, bukan tidak mungkin akan terjadi krisis air bersih.'<br>Jenis paragraf tersebut adalah...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 4,
-                explanation: "Paragraf tersebut bersifat persuasi karena berisi imbauan kepada pembaca untuk melakukan penghematan air."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Meskipun hujan turun dengan derasnya, tetapi ia tetap berangkat ke sekolah.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Meskipun hujan turun dengan derasnya, ia tetap berangkat ke sekolah.",
-                    "B. Hujan turun dengan derasnya, tetapi ia tetap berangkat ke sekolah.",
-                    "C. Meskipun hujan turun dengan derasnya, namun ia tetap berangkat ke sekolah.",
-                    "D. Walaupun hujan turun dengan derasnya, tetapi ia tetap berangkat ke sekolah.",
-                    "E. Karena hujan turun dengan derasnya, tetapi ia tetap berangkat ke sekolah."
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'meskipun' sudah mengandung makna pertentangan sehingga tidak perlu lagi menggunakan 'tetapi'. Pilihan A sudah benar."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Pohon itu berdiri tegak di tengah lapangan. Batangnya yang besar dan kokoh menopang cabang-cabang yang menjulang ke langit. Daun-daunnya yang hijau lebat bergoyang ditiup angin.'<br>Teks tersebut termasuk jenis teks...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Teks tersebut mendeskripsikan secara rinci tentang pohon, sehingga termasuk jenis teks deskripsi."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kepala sekolah beserta staf guru sedang rapat di ruang guru.'<br>Predikat kalimat tersebut adalah...",
-                options: [
-                    "A. Kepala sekolah",
-                    "B. beserta staf guru",
-                    "C. sedang",
-                    "D. sedang rapat",
-                    "E. rapat"
-                ],
-                correctAnswer: 3,
-                explanation: "Predikat kalimat tersebut adalah 'sedang rapat' yang menunjukkan kegiatan yang dilakukan subjek."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Banyak manfaat yang bisa diperoleh dari membaca. Membaca dapat memperluas wawasan kita tentang berbagai hal. Selain itu, membaca juga dapat meningkatkan kemampuan berbahasa dan berpikir kritis.'<br>Kalimat utama paragraf tersebut adalah...",
-                options: [
-                    "A. Kalimat pertama",
-                    "B. Kalimat kedua",
-                    "C. Kalimat ketiga",
-                    "D. Kalimat pertama dan kedua",
-                    "E. Kalimat kedua dan ketiga"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat pertama merupakan kalimat utama yang mengandung ide pokok tentang manfaat membaca, sedangkan kalimat berikutnya merupakan penjelas."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Para hadirin dimohon berdiri untuk menyanyikan lagu kebangsaan.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Para hadirin dimohon untuk berdiri menyanyikan lagu kebangsaan.",
-                    "B. Hadirin dimohon berdiri untuk menyanyikan lagu kebangsaan.",
-                    "C. Para hadirin diminta berdiri untuk menyanyikan lagu kebangsaan.",
-                    "D. Hadirin-hadirin dimohon berdiri untuk menyanyikan lagu kebangsaan.",
-                    "E. Para hadirin dipersilakan berdiri untuk menyanyikan lagu kebangsaan."
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'hadirin' sudah bermakna jamak sehingga tidak perlu menggunakan 'para'. Pilihan B sudah benar."
-            },
-            {
-                question: "Bacalah kutipan cerita berikut!<br>'Tiba-tiba saja langit menjadi gelap. Angin bertiup kencang menerbangkan dedaunan kering. Aku segera berlari mencari tempat berteduh ketika butiran hujan mulai jatuh.'<br>Majas yang digunakan dalam kutipan tersebut adalah...",
-                options: [
-                    "A. Personifikasi",
-                    "B. Metafora",
-                    "C. Hiperbola",
-                    "D. Litotes",
-                    "E. Ironi"
-                ],
-                correctAnswer: 0,
-                explanation: "Majas personifikasi terdapat pada 'angin bertiup kencang menerbangkan dedaunan' yang memberikan sifat manusia pada angin."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kami pergi ke Bandung naik bus kemarin.'<br>Perbaikan susunan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Kemarin kami pergi ke Bandung naik bus.",
-                    "B. Kami pergi kemarin ke Bandung naik bus.",
-                    "C. Naik bus kami pergi ke Bandung kemarin.",
-                    "D. Ke Bandung kami pergi naik bus kemarin.",
-                    "E. Kami naik bus pergi ke Bandung kemarin."
-                ],
-                correctAnswer: 0,
-                explanation: "Susunan kalimat yang paling tepat adalah dengan menempatkan keterangan waktu di awal atau akhir kalimat. Pilihan A sudah benar."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Pemerintah akan membangun jembatan baru untuk menghubungkan kedua desa tersebut. Pembangunan ini diharapkan dapat mempermudah akses transportasi warga. Selain itu, perekonomian antar desa juga akan lebih berkembang.'<br>Ide pokok teks tersebut adalah...",
-                options: [
-                    "A. Manfaat pembangunan jembatan",
-                    "B. Rencana pembangunan jembatan",
-                    "C. Lokasi pembangunan jembatan",
-                    "D. Tujuan pembangunan jembatan",
-                    "E. Biaya pembangunan jembatan"
-                ],
-                correctAnswer: 1,
-                explanation: "Ide pokok teks adalah rencana pembangunan jembatan baru yang disebutkan di kalimat pertama."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Banyak siswa yang tidak menyukai pelajaran matematika karena dianggap sulit.'<br>Kalimat tanya yang sesuai dengan isi kalimat tersebut adalah...",
-                options: [
-                    "A. Mengapa banyak siswa tidak menyukai pelajaran matematika?",
-                    "B. Bagaimana cara menyukai pelajaran matematika?",
-                    "C. Kapan siswa mulai tidak menyukai matematika?",
-                    "D. Siapa yang tidak menyukai pelajaran matematika?",
-                    "E. Apa akibat tidak menyukai matematika?"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat tanya yang sesuai adalah yang menanyakan alasan ketidaksukaan terhadap matematika, seperti pada pilihan A."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pohon-pohon di hutan terus ditebang secara liar. Setiap hari, ratusan pohon hilang dari hutan kita. Jika hal ini terus terjadi, bukan tidak mungkin hutan kita akan habis dalam beberapa tahun ke depan.'<br>Simpulan yang tepat untuk paragraf tersebut adalah...",
-                options: [
-                    "A. Penebangan pohon harus dihentikan",
-                    "B. Hutan akan punah karena penebangan liar",
-                    "C. Setiap hari banyak pohon ditebang",
-                    "D. Penebangan liar merugikan banyak pihak",
-                    "E. Kita harus menanam pohon kembali"
-                ],
-                correctAnswer: 1,
-                explanation: "Simpulan yang tepat adalah bahwa hutan akan punah jika penebangan liar terus berlanjut, seperti implikasi yang disebutkan di paragraf."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Karya sastra yang ditulisnya sangat menarik sehingga banyak pembaca yang menyukainya.'<br>Kata penghubung yang digunakan dalam kalimat tersebut menyatakan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata penghubung 'sehingga' menyatakan hubungan akibat (banyak pembaca menyukai sebagai akibat dari karya yang menarik)."
-            },
-            {
-                question: "Bacalah kutipan cerita berikut!<br>'Lima menit berlalu, tetapi bus yang ditunggu belum juga datang. Andi mulai gelisah melihat jam tangannya. Ia khawatir akan terlambat mengikuti ujian yang sangat penting itu.'<br>Konflik yang terjadi dalam kutipan tersebut adalah...",
-                options: [
-                    "A. Andi menunggu bus yang tak kunjung datang",
-                    "B. Andi akan mengikuti ujian penting",
-                    "C. Andi sering terlambat ke sekolah",
-                    "D. Bus yang ditunggu Andi mogok",
-                    "E. Andi lupa membawa jam tangan"
-                ],
-                correctAnswer: 0,
-                explanation: "Konflik utama dalam kutipan adalah Andi yang menunggu bus yang tak kunjung datang sementara ia harus mengikuti ujian penting."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kepada Bapak/Ibu guru, kami ucapkan terima kasih.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Kepada Bapak/Ibu Guru, kami ucapkan terima kasih.",
-                    "B. Kepada Bapak-Ibu guru, kami ucapkan terima kasih.",
-                    "C. Kepada bapak/ibu guru, kami ucapkan terima kasih.",
-                    "D. Kepada Bapak dan Ibu guru, kami ucapkan terima kasih.",
-                    "E. Kepada Bapak/Ibu guru kami ucapkan terima kasih."
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'Guru' sebagai sapaan harus ditulis dengan huruf kapital. Pilihan A sudah benar."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pemuda itu berlari dengan cepat. Napasnya sudah terengah-engah, tetapi ia terus memacu langkahnya. Ia tidak boleh terlambat. Hari ini adalah kesempatan terakhirnya untuk mengubah nasib.'<br>Tema paragraf tersebut adalah...",
-                options: [
-                    "A. Perjuangan",
-                    "B. Kecepatan",
-                    "C. Kesempatan",
-                    "D. Ketakutan",
-                    "E. Keterlambatan"
-                ],
-                correctAnswer: 0,
-                explanation: "Tema yang dominan adalah perjuangan, terlihat dari usaha keras pemuda tersebut meski sudah kelelahan."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kami menyaksikan pertunjukan itu dengan sangat kagum.'<br>Kalimat pasif yang tepat untuk kalimat tersebut adalah...",
-                options: [
-                    "A. Pertunjukan itu kami saksikan dengan sangat kagum.",
-                    "B. Pertunjukan itu disaksikan kami dengan sangat kagum.",
-                    "C. Pertunjukan itu disaksikan oleh kami dengan sangat kagum.",
-                    "D. Dengan sangat kagum kami menyaksikan pertunjukan itu.",
-                    "E. Dengan sangat kagum pertunjukan itu kami saksikan."
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat pasif yang tepat adalah 'Pertunjukan itu disaksikan oleh kami dengan sangat kagum' dengan subjek yang tepat dan penggunaan kata 'oleh'."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Pemerintah mengimbau masyarakat untuk tidak panik menghadapi kenaikan harga bahan pokok. Berbagai kebijakan sedang disiapkan untuk menstabilkan harga. Masyarakat diharapkan tetap tenang dan tidak menimbun barang.'<br>Tujuan teks tersebut adalah...",
-                options: [
-                    "A. Memberitahu kenaikan harga bahan pokok",
-                    "B. Menenangkan masyarakat",
-                    "C. Mengkritik kebijakan pemerintah",
-                    "D. Menjelaskan penyebab kenaikan harga",
-                    "E. Memperingatkan para penimbun barang"
-                ],
-                correctAnswer: 1,
-                explanation: "Tujuan teks adalah menenangkan masyarakat terkait kenaikan harga bahan pokok dengan menyampaikan bahwa pemerintah sedang mengambil tindakan."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Selain pandai bernyanyi, Rina juga jago menari.'<br>Kata penghubung yang digunakan dalam kalimat tersebut menyatakan hubungan...",
-                options: [
-                    "A. Pertentangan",
-                    "B. Pemilihan",
-                    "C. Penguatan",
-                    "D. Penjumlahan",
-                    "E. Pembatasan"
-                ],
-                correctAnswer: 3,
-                explanation: "Kata penghubung 'juga' menyatakan hubungan penjumlahan atau penambahan informasi."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pendidikan karakter sangat penting ditanamkan sejak dini. Dengan pendidikan karakter, anak-anak akan tumbuh menjadi pribadi yang bertanggung jawab dan berakhlak mulia. Sekolah dan keluarga harus bekerja sama dalam menanamkan nilai-nilai karakter ini.'<br>Kalimat utama paragraf tersebut adalah...",
-                options: [
-                    "A. Kalimat pertama",
-                    "B. Kalimat kedua",
-                    "C. Kalimat ketiga",
-                    "D. Kalimat pertama dan kedua",
-                    "E. Kalimat kedua dan ketiga"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat pertama merupakan kalimat utama yang mengandung ide pokok tentang pentingnya pendidikan karakter."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Banyak siswa yang tidak mengerjakan PR karena alasan lupa.'<br>Kalimat tanya yang sesuai untuk mendapatkan jawaban seperti kalimat tersebut adalah...",
-                options: [
-                    "A. Mengapa banyak siswa tidak mengerjakan PR?",
-                    "B. Bagaimana cara mengerjakan PR?",
-                    "C. Kapan siswa mengerjakan PR?",
-                    "D. Di mana siswa mengerjakan PR?",
-                    "E. Apa akibat tidak mengerjakan PR?"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat tanya yang sesuai adalah yang menanyakan alasan ketidakmengerjaan PR, seperti pada pilihan A."
-            },
-            {
-                question: "Bacalah kutipan cerita berikut!<br>'Matahari belum tinggi ketika kami tiba di pantai. Ombak kecil berkejaran menyapu pasir putih. Bau garam tercium kuat di udara. Kami segera membentikkan handuk dan bersiap menikmati hari yang indah ini.'<br>Unsur intrinsik yang dominan dalam kutipan tersebut adalah...",
-                options: [
-                    "A. Tema",
-                    "B. Alur",
-                    "C. Latar",
-                    "D. Tokoh",
-                    "E. Amanat"
-                ],
-                correctAnswer: 2,
-                explanation: "Unsur yang dominan adalah latar (setting) karena menggambarkan tempat dan suasana di pantai secara detail."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Para tamu undangan sudah hadir semua, acara segera dimulai.'<br>Tanda baca yang tepat untuk kalimat tersebut adalah...",
-                options: [
-                    "A. Para tamu undangan sudah hadir semua; acara segera dimulai.",
-                    "B. Para tamu undangan sudah hadir semua: acara segera dimulai.",
-                    "C. Para tamu undangan sudah hadir semua - acara segera dimulai.",
-                    "D. Para tamu undangan sudah hadir semua, acara segera dimulai.",
-                    "E. Para tamu undangan sudah hadir semua. Acara segera dimulai."
-                ],
-                correctAnswer: 0,
-                explanation: "Tanda baca yang tepat adalah titik koma (;) karena menghubungkan dua kalimat yang berkaitan erat."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Penggunaan plastik sekali pakai terus meningkat setiap tahun. Sampah plastik menjadi masalah serius bagi lingkungan karena sulit terurai. Dibutuhkan kesadaran semua pihak untuk mengurangi penggunaan plastik sekali pakai.'<br>Simpulan yang tepat untuk paragraf tersebut adalah...",
-                options: [
-                    "A. Plastik sangat berguna dalam kehidupan sehari-hari",
-                    "B. Sampah plastik harus segera diurai",
-                    "C. Penggunaan plastik sekali pakai perlu dikurangi",
-                    "D. Semua pihak sudah sadar akan bahaya plastik",
-                    "E. Plastik sebaiknya diganti dengan bahan lain"
-                ],
-                correctAnswer: 2,
-                explanation: "Simpulan yang tepat adalah perlunya mengurangi penggunaan plastik sekali pakai seperti disebutkan di kalimat terakhir."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Karya sastra tidak hanya menghibur tetapi juga mengajarkan nilai-nilai kehidupan.'<br>Kata penghubung yang digunakan dalam kalimat tersebut menyatakan hubungan...",
-                options: [
-                    "A. Pertentangan",
-                    "B. Pemilihan",
-                    "C. Penguatan",
-                    "D. Penjumlahan",
-                    "E. Pembatasan"
-                ],
-                correctAnswer: 0,
-                explanation: "Kata penghubung 'tetapi juga' menyatakan hubungan pertentangan antara fungsi menghibur dan mengajarkan."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Pemerintah akan membangun pusat kesehatan masyarakat di setiap kecamatan. Fasilitas ini diharapkan dapat menjangkau pelayanan kesehatan dasar bagi seluruh warga. Dengan demikian, masyarakat tidak perlu jauh-jauh ke rumah sakit untuk berobat.'<br>Tujuan teks tersebut adalah...",
-                options: [
-                    "A. Mengumumkan pembangunan puskesmas",
-                    "B. Menjelaskan manfaat puskesmas",
-                    "C. Membandingkan puskesmas dengan rumah sakit",
-                    "D. Mengkritik pelayanan kesehatan saat ini",
-                    "E. Memaparkan lokasi pembangunan puskesmas"
-                ],
-                correctAnswer: 0,
-                explanation: "Tujuan teks adalah mengumumkan rencana pembangunan puskesmas dan manfaat yang diharapkan."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kita harus menjaga kebersihan lingkungan agar terhindar dari penyakit.'<br>Kalimat tersebut mengandung hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'agar' menunjukkan hubungan tujuan, yaitu tujuan dari menjaga kebersihan adalah untuk terhindar dari penyakit."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pohon itu sangat rindang. Daun-daunnya yang hijau lebat menutupi sebagian besar batangnya yang besar. Di bawahnya, tersebar bayangan yang sejuk membuat siapa pun ingin berlindung di sana.'<br>Jenis paragraf tersebut adalah...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Paragraf tersebut termasuk deskripsi karena menggambarkan secara rinci tentang pohon dan suasana di sekitarnya."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Banyak siswa yang berprestasi di sekolah ini menerima beasiswa.'<br>Kalimat pasif yang tepat untuk kalimat tersebut adalah...",
-                options: [
-                    "A. Banyak siswa berprestasi menerima beasiswa di sekolah ini.",
-                    "B. Beasiswa diterima oleh banyak siswa yang berprestasi di sekolah ini.",
-                    "C. Di sekolah ini, banyak siswa berprestasi menerima beasiswa.",
-                    "D. Banyak beasiswa diterima siswa berprestasi di sekolah ini.",
-                    "E. Siswa berprestasi banyak menerima beasiswa di sekolah ini."
-                ],
-                correctAnswer: 1,
-                explanation: "Kalimat pasif yang tepat adalah 'Beasiswa diterima oleh banyak siswa yang berprestasi di sekolah ini' dengan struktur yang benar."
-            },
-            {
-                question: "Bacalah kutipan cerita berikut!<br>'Aku berdiri di depan pintu kelas dengan jantung berdebar kencang. Telapak tanganku berkeringat dingin. Ini adalah hari pertama aku sekolah di tempat baru.'<br>Sudut pandang yang digunakan dalam kutipan tersebut adalah...",
-                options: [
-                    "A. Orang pertama",
-                    "B. Orang kedua",
-                    "C. Orang ketiga",
-                    "D. Campuran",
-                    "E. Tidak jelas"
-                ],
-                correctAnswer: 0,
-                explanation: "Sudut pandang orang pertama ditandai dengan penggunaan kata 'aku' sebagai narator."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kepada semua peserta lomba diharap berkumpul di aula.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Kepada semua peserta lomba diharapkan berkumpul di aula.",
-                    "B. Semua peserta lomba diharap berkumpul di aula.",
-                    "C. Para peserta lomba diharap berkumpul di aula.",
-                    "D. Kepada para peserta lomba diharap berkumpul di aula.",
-                    "E. Semua peserta lomba harap berkumpul di aula."
-                ],
-                correctAnswer: 1,
-                explanation: "Perbaikan yang tepat adalah menghilangkan kata 'kepada' karena tidak diperlukan. 'Semua peserta lomba diharap berkumpul di aula' sudah benar."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pencemaran udara di kota besar semakin mengkhawatirkan. Asap kendaraan bermotor menjadi penyumbang terbesar polusi udara. Jika tidak segera diatasi, hal ini akan berdampak serius pada kesehatan masyarakat.'<br>Kalimat utama paragraf tersebut adalah...",
-                options: [
-                    "A. Kalimat pertama",
-                    "B. Kalimat kedua",
-                    "C. Kalimat ketiga",
-                    "D. Kalimat pertama dan kedua",
-                    "E. Kalimat kedua dan ketiga"
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat pertama merupakan kalimat utama yang menyatakan ide pokok tentang pencemaran udara yang mengkhawatirkan."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kita harus hemat energi supaya persediaannya tidak cepat habis.'<br>Kata penghubung yang digunakan dalam kalimat tersebut menyatakan hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'supaya' menyatakan hubungan tujuan, yaitu tujuan dari hemat energi adalah agar persediaan tidak cepat habis."
-            },
-            {
-                question: "Bacalah teks berikut!<br>'Pemerintah menggalakkan program literasi di sekolah-sekolah. Setiap siswa diwajibkan membaca buku nonpelajaran selama 15 menit sebelum pelajaran dimulai. Program ini bertujuan meningkatkan minat baca siswa.'<br>Ide pokok teks tersebut adalah...",
-                options: [
-                    "A. Kewajiban membaca buku nonpelajaran",
-                    "B. Program literasi di sekolah-sekolah",
-                    "C. Minat baca siswa yang rendah",
-                    "D. Kegiatan sebelum pelajaran dimulai",
-                    "E. Durasi waktu membaca siswa"
-                ],
-                correctAnswer: 1,
-                explanation: "Ide pokok teks adalah tentang program literasi di sekolah-sekolah yang disebutkan di kalimat pertama."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Meskipun hari sudah malam, tetapi ayah masih bekerja di kantor.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Meskipun hari sudah malam, ayah masih bekerja di kantor.",
-                    "B. Hari sudah malam, tetapi ayah masih bekerja di kantor.",
-                    "C. Walaupun hari sudah malam, tetapi ayah masih bekerja di kantor.",
-                    "D. Karena hari sudah malam, tetapi ayah masih bekerja di kantor.",
-                    "E. Hari sudah malam, ayah masih bekerja di kantor."
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'meskipun' sudah mengandung makna pertentangan sehingga tidak perlu lagi menggunakan 'tetapi'. Pilihan A sudah benar."
-            },
-            {
-                question: "Cermati paragraf berikut!<br>'Pasar tradisional masih menjadi favorit banyak ibu rumah tangga. Selain harganya yang lebih murah, sayuran dan bahan makanan lainnya juga terlihat lebih segar. Interaksi langsung antara penjual dan pembeli menambah daya tarik pasar tradisional.'<br>Simpulan yang tepat untuk paragraf tersebut adalah...",
-                options: [
-                    "A. Pasar tradisional menjual sayuran segar",
-                    "B. Ibu rumah tangga suka berinteraksi di pasar",
-                    "C. Pasar tradisional memiliki beberapa keunggulan",
-                    "D. Harga di pasar tradisional lebih murah",
-                    "E. Banyak orang lebih suka pasar tradisional"
-                ],
-                correctAnswer: 2,
-                explanation: "Simpulan yang tepat adalah bahwa pasar tradisional memiliki beberapa keunggulan seperti harga murah, barang segar, dan interaksi langsung."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Kita harus rajin belajar agar lulus ujian dengan nilai baik.'<br>Kalimat tersebut mengandung hubungan...",
-                options: [
-                    "A. Sebab",
-                    "B. Akibat",
-                    "C. Tujuan",
-                    "D. Syarat",
-                    "E. Pertentangan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'agar' menunjukkan hubungan tujuan, yaitu tujuan dari rajin belajar adalah untuk lulus ujian dengan nilai baik."
-            },
-            {
-                question: "Bacalah kutipan cerita berikut!<br>'Angin bertiup kencang menerbangkan dedaunan kering. Awan hitam mulai menutupi langit. Dari kejauhan, sesekali terdengar suara guruh yang menggelegar.'<br>Latar suasana dalam kutipan tersebut adalah...",
-                options: [
-                    "A. Menegangkan",
-                    "B. Menyenangkan",
-                    "C. Mencekam",
-                    "D. Mengerikan",
-                    "E. Menyedihkan"
-                ],
-                correctAnswer: 0,
-                explanation: "Latar suasana adalah menegangkan ditandai dengan angin kencang, awan hitam, dan suara guruh yang menggelegar."
-            },
-            {
-                question: "Perhatikan kalimat berikut!<br>'Para guru-guru sedang rapat di ruang meeting.'<br>Perbaikan kalimat tersebut yang tepat adalah...",
-                options: [
-                    "A. Para guru sedang rapat di ruang meeting.",
-                    "B. Guru-guru sedang rapat di ruang meeting.",
-                    "C. Para guru-guru sedang rapat di ruang rapat.",
-                    "D. Guru sedang rapat di ruang meeting.",
-                    "E. Para guru sedang rapat di ruang rapat."
-                ],
-                correctAnswer: 0,
-                explanation: "Kata 'para' sudah menunjukkan jamak sehingga tidak perlu lagi menggunakan 'guru-guru'. 'Ruang meeting' sudah umum digunakan sehingga tidak perlu diganti."
-            }
+                        question: "Kalimat yang menggunakan kata serapan dengan benar adalah...",
+                        options: [
+                            "A. Sistem pendidikan di Indonesia terus berkembang.",
+                            "B. Analisa data membutuhkan ketelitian.",
+                            "C. Praktik dokter itu sangat ramah.",
+                            "D. Nasehat orang tua harus didengarkan.",
+                            "E. Apotik itu buka 24 jam."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kata 'sistem' merupakan kata serapan yang sudah dibakukan dalam bahasa Indonesia. Kata yang benar untuk pilihan lain: analisis, praktik, nasihat, apotek."
+                    },
+                    {
+                        question: "Kalimat yang mengandung majas metafora adalah...",
+                        options: [
+                            "A. Wajahnya pucat bagai bulan kesiangan.",
+                            "B. Raja siang mulai bersinar terik.",
+                            "C. Suaranya keras seperti halilintar.",
+                            "D. Rambutnya ikal bak mayang terurai.",
+                            "E. Tubuhnya tinggi bagai tiang listrik."
+                        ],
+                        correctAnswer: 1,
+                        explanation: "'Raja siang' adalah metafora untuk matahari. Metafora adalah majas yang membandingkan sesuatu secara langsung tanpa kata pembanding."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata penghubung 'sehingga' dengan tepat adalah...",
+                        options: [
+                            "A. Dia belajar dengan giat sehingga lulus ujian.",
+                            "B. Saya bangun pagi sehingga tidak terlambat.",
+                            "C. Hujan turun lebat sehingga jalanan banjir.",
+                            "D. Ibu memasak dengan hati-hati sehingga masakannya enak.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'sehingga' dengan tepat untuk menunjukkan hubungan sebab-akibat."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks deskripsi adalah...",
+                        options: [
+                            "A. Pantai Parangtritis memiliki pasir putih yang membentang sepanjang 5 km.",
+                            "B. Proses fotosintesis pada tumbuhan menghasilkan oksigen.",
+                            "C. Sebaiknya kita menjaga kebersihan lingkungan.",
+                            "D. Presiden mengeluarkan peraturan baru tentang pajak.",
+                            "E. Gempa bumi terjadi karena pergeseran lempeng bumi."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Pantai Parangtritis memiliki pasir putih yang membentang sepanjang 5 km.' adalah contoh teks deskripsi karena menggambarkan suatu objek."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'bahwa' dengan tepat adalah...",
+                        options: [
+                            "A. Ibu mengatakan bahwa adik sedang sakit.",
+                            "B. Bahwa kita harus belajar sudah jelas.",
+                            "C. Guru menjelaskan bahwa matahari adalah bintang.",
+                            "D. Bahwa dia tidak datang membuatku kecewa.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'bahwa' dengan tepat untuk mengawali anak kalimat yang berfungsi sebagai objek."
+                    },
+                    {
+                        question: "Kalimat yang mengandung kata berimbuhan ber- yang tepat adalah...",
+                        options: [
+                            "A. Adik bermain di halaman rumah.",
+                            "B. Ibu berbelanja di pasar tradisional.",
+                            "C. Ayah bekerja di perusahaan swasta.",
+                            "D. Kami berlibur ke Bali bulan lalu.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata berimbuhan ber- dengan tepat. Imbuhan ber- dapat berarti melakukan aktivitas (bermain, berbelanja, bekerja, berlibur)."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'agar' dengan tepat adalah...",
+                        options: [
+                            "A. Kamu harus belajar giat agar lulus ujian.",
+                            "B. Ibu menyuruh adik tidur agar tidak mengantuk besok.",
+                            "C. Kami berangkat pagi agar tidak macet.",
+                            "D. Ayah menabung agar bisa membeli rumah.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'agar' dengan tepat untuk menyatakan tujuan."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks eksposisi adalah...",
+                        options: [
+                            "A. Pendidikan karakter sangat penting untuk membentuk kepribadian anak.",
+                            "B. Gunung Merapi adalah gunung berapi paling aktif di Indonesia.",
+                            "C. Sungai Ciliwung sering meluap saat musim hujan.",
+                            "D. Harimau Sumatra termasuk hewan yang dilindungi.",
+                            "E. Pantai Kuta terkenal dengan ombaknya yang besar."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Pendidikan karakter sangat penting untuk membentuk kepribadian anak.' adalah contoh teks eksposisi karena memaparkan suatu pendapat."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'karena' dengan tepat adalah...",
+                        options: [
+                            "A. Saya tidak masuk sekolah karena sakit.",
+                            "B. Karena hujan deras, jalanan menjadi licin.",
+                            "C. Dia tidak lulus ujian karena malas belajar.",
+                            "D. Karena tidak ada makanan, kucing itu pergi.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'karena' dengan tepat untuk menyatakan sebab-akibat."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks narasi adalah...",
+                        options: [
+                            "A. Pagi itu, aku bangun dengan perasaan gembira.",
+                            "B. Proses pembuatan tempe membutuhkan waktu 2-3 hari.",
+                            "C. Sebaiknya kita mengurangi penggunaan plastik.",
+                            "D. Indonesia memiliki kekayaan alam yang melimpah.",
+                            "E. Virus corona menyebar melalui droplet."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Pagi itu, aku bangun dengan perasaan gembira.' adalah contoh teks narasi karena menceritakan suatu peristiwa."
+                    }
                 ]
             },
             'SMA/SMK': {
                 'Bahasa Indonesia': [
                     {
-                question: "Teks berikut untuk soal nomor 1-3.<br><br>'Kota itu telah berubah drastis dalam sepuluh tahun terakhir. Gedung-gedung pencakar langit menjulang di antara bangunan tua yang masih bertahan. Kawasan yang dulunya sepi kini ramai oleh aktivitas bisnis dan hiburan. Namun, di balik kemegahan itu, masalah sosial seperti kesenjangan ekonomi semakin terlihat jelas.'<br><br>1. Ide pokok paragraf pertama adalah...",
-                options: [
-                    "A. Pembangunan gedung pencakar langit",
-                    "B. Perubahan drastis suatu kota",
-                    "C. Masalah sosial di kota besar",
-                    "D. Kesenjangan ekonomi yang meningkat",
-                    "E. Aktivitas bisnis dan hiburan"
-                ],
-                correctAnswer: 1,
-                explanation: "Ide pokok paragraf pertama adalah perubahan drastis suatu kota dalam sepuluh tahun terakhir, yang ditunjukkan oleh kalimat pertama sebagai kalimat utama."
-            },
-            {
-                question: "2. Makna kata 'drastis' dalam paragraf tersebut adalah...",
-                options: [
-                    "A. Perlahan-lahan",
-                    "B. Sedikit demi sedikit",
-                    "C. Secara radikal/mendadak",
-                    "D. Berdasarkan rencana",
-                    "E. Tanpa perencanaan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'drastis' berarti perubahan yang terjadi secara radikal atau mendadak, bukan bertahap."
-            },
-            {
-                question: "3. Aspek kebahasaan yang menonjol dalam teks tersebut adalah...",
-                options: [
-                    "A. Banyak menggunakan majas metafora",
-                    "B. Dominasi kalimat langsung",
-                    "C. Penggunaan kata penghubung yang kompleks",
-                    "D. Pemilihan kata yang bersifat denotatif",
-                    "E. Banyak menggunakan istilah teknis"
-                ],
-                correctAnswer: 3,
-                explanation: "Teks tersebut menggunakan kata-kata yang bersifat denotatif (makna sebenarnya) untuk menggambarkan keadaan kota."
-            },
-            {
-                question: "4. Cermati kalimat berikut:<br>'Para ilmuwan yang melakukan penelitian di daerah tersebut menemukan fakta-fakta baru yang mengejutkan.'<br>Klausa relatif dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Para ilmuwan",
-                    "B. yang melakukan penelitian",
-                    "C. di daerah tersebut",
-                    "D. menemukan fakta-fakta baru",
-                    "E. yang mengejutkan"
-                ],
-                correctAnswer: 1,
-                explanation: "Klausa relatif adalah 'yang melakukan penelitian' karena berfungsi menerangkan kata 'ilmuwan'."
-            },
-            {
-                question: "5. Teks berikut untuk soal nomor 5-7.<br><br>'Literasi digital bukan sekadar kemampuan teknis mengoperasikan perangkat, melainkan juga mencakup pemahaman kritis terhadap konten dan dampaknya. Di era banjir informasi, kemampuan memfilter dan memverifikasi data menjadi keterampilan esensial.'<br><br>Gagasan utama teks tersebut adalah...",
-                options: [
-                    "A. Pentingnya keterampilan teknis digital",
-                    "B. Definisi literasi digital yang komprehensif",
-                    "C. Bahaya banjir informasi di era digital",
-                    "D. Cara memverifikasi data di internet",
-                    "E. Dampak negatif literasi digital"
-                ],
-                correctAnswer: 1,
-                explanation: "Gagasan utama teks adalah definisi literasi digital yang tidak hanya teknis tetapi juga mencakup pemahaman kritis terhadap konten."
-            },
-            {
-                question: "6. Kata 'esensial' dalam teks tersebut bermakna...",
-                options: [
-                    "A. Tambahan",
-                    "B. Penting",
-                    "C. Sementara",
-                    "D. Kompleks",
-                    "E. Sederhana"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'esensial' berarti penting atau sangat diperlukan dalam konteks ini."
-            },
-            {
-                question: "7. Jenis teks tersebut termasuk...",
-                options: [
-                    "A. Narasi",
-                    "B. Deskripsi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 2,
-                explanation: "Teks tersebut bersifat eksposisi karena memaparkan penjelasan tentang suatu konsep (literasi digital)."
-            },
-            {
-                question: "8. Cermati paragraf berikut:<br>'Penelitian terbaru mengungkapkan bahwa kebiasaan membaca dapat meningkatkan kapasitas memori otak hingga 30%. Selain itu, aktivitas ini juga merangsang perkembangan neuron dan memperkuat jaringan saraf.'<br>Fungsi kata 'Selain itu' dalam paragraf tersebut adalah...",
-                options: [
-                    "A. Menunjukkan perbandingan",
-                    "B. Menyatakan sebab-akibat",
-                    "C. Menambahkan informasi",
-                    "D. Menyatakan pertentangan",
-                    "E. Menegaskan pernyataan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'Selain itu' berfungsi untuk menambahkan informasi baru yang masih terkait dengan informasi sebelumnya."
-            },
-            {
-                question: "9. Kalimat yang menggunakan kata berkonotasi negatif adalah...",
-                options: [
-                    "A. Pemerintah memberikan bantuan tunai kepada warga terdampak.",
-                    "B. Aksi protes itu diwarnai kericuhan dan pembakaran kendaraan.",
-                    "C. Mahasiswa menyelenggarakan diskusi tentang reformasi pendidikan.",
-                    "D. Desa itu terkenal dengan keramahan warganya.",
-                    "E. Tim peneliti berhasil menemukan spesies baru."
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'kericuhan' dan 'pembakaran' memiliki konotasi negatif karena mengacu pada situasi yang tidak baik."
-            },
-            {
-                question: "10. Cermati kalimat berikut:<br>'Meskipun hujan turun dengan derasnya, tim penyelamat tetap melanjutkan pencarian korban longsor.'<br>Kalimat tersebut mengandung hubungan...",
-                options: [
-                    "A. Sebab-akibat",
-                    "B. Pertentangan",
-                    "C. Perbandingan",
-                    "D. Penjelasan",
-                    "E. Tujuan"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'meskipun' menunjukkan hubungan pertentangan antara dua keadaan yang berlawanan."
-            },
-            {
-                question: "11. Teks berikut untuk soal nomor 11-13.<br><br>'Adaptasi film dari novel seringkali menuai pro dan kontra. Purisme sastra menganggap adaptasi cenderung mengurangi kedalaman karya asli. Namun, sineas berargumen bahwa medium film memiliki bahasa visual yang unik untuk menafsirkan ulang cerita.'<br><br>Konflik yang disajikan dalam teks tersebut adalah...",
-                options: [
-                    "A. Antara penulis novel dan pembaca",
-                    "B. Antara purisme sastra dan kreativitas sineas",
-                    "C. Antara bahasa verbal dan bahasa visual",
-                    "D. Antara karya asli dan karya turunan",
-                    "E. Antara kedalaman cerita dan visualisasi"
-                ],
-                correctAnswer: 1,
-                explanation: "Konflik dalam teks adalah antara pandangan purisme sastra yang ingin mempertahankan keaslian karya dan sineas yang ingin mengekspresikan kreativitas melalui bahasa visual."
-            },
-            {
-                question: "12. Istilah 'purisme sastra' dalam teks merujuk pada...",
-                options: [
-                    "A. Gerakan untuk menyederhanakan karya sastra",
-                    "B. Aliran yang menolak adaptasi karya sastra",
-                    "C. Pandangan yang mempertahankan kemurnian karya asli",
-                    "D. Kritik terhadap karya sastra modern",
-                    "E. Penolakan terhadap medium visual"
-                ],
-                correctAnswer: 2,
-                explanation: "'Purisme sastra' merujuk pada pandangan yang ingin mempertahankan kemurnian atau keaslian karya sastra tanpa perubahan."
-            },
-            {
-                question: "13. Jenis argumen yang digunakan sineas dalam teks tersebut adalah...",
-                options: [
-                    "A. Argumentasi analogi",
-                    "B. Argumentasi sebab-akibat",
-                    "C. Argumentasi otoritas",
-                    "D. Argumentasi definisi",
-                    "E. Argumentasi contoh"
-                ],
-                correctAnswer: 3,
-                explanation: "Sineas menggunakan argumentasi definisi dengan menyatakan bahwa film memiliki bahasa visual yang unik sebagai medium berbeda untuk menafsirkan cerita."
-            },
-            {
-                question: "14. Cermati kalimat berikut:<br>'Regulasi baru tentang pembatasan penggunaan plastik sekali pakai segera diterapkan, yakni mulai 1 Januari tahun depan.'<br>Kata 'yakni' dalam kalimat tersebut berfungsi sebagai...",
-                options: [
-                    "A. Penghubung antarkalimat",
-                    "B. Penanda waktu",
-                    "C. Penjelas atau pemeri",
-                    "D. Penegas informasi",
-                    "E. Penanda urutan"
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'yakni' berfungsi sebagai pemeri atau penjelas yang memberikan rincian lebih spesifik tentang informasi sebelumnya."
-            },
-            {
-                question: "15. Kalimat yang mengandung majas metafora adalah...",
-                options: [
-                    "A. Angin berbisik lembut melalui dedaunan.",
-                    "B. Waktunya adalah emas yang harus dimanfaatkan.",
-                    "C. Peluit wasit memecah kesunyian stadion.",
-                    "D. Mereka bekerja bagai semut yang tak kenal lelah.",
-                    "E. Suaranya menggelegar seperti halilintar."
-                ],
-                correctAnswer: 1,
-                explanation: "Kalimat 'Waktunya adalah emas' merupakan metafora yang membandingkan waktu dengan emas secara implisit untuk menunjukkan betapa berharganya waktu."
-            },
-            {
-                question: "16. Teks berikut untuk soal nomor 16-18.<br><br>'Ekosistem mangrove memiliki peran vital sebagai buffer zone antara daratan dan laut. Vegetasi ini tidak hanya mencegah abrasi tetapi juga menjadi habitat berbagai biota laut. Sayangnya, alih fungsi lahan untuk tambak dan permukiman mengancam kelestariannya.'<br><br>Teks tersebut terutama membahas tentang...",
-                options: [
-                    "A. Jenis-jenis biota laut di mangrove",
-                    "B. Proses terjadinya abrasi pantai",
-                    "C. Fungsi dan ancaman terhadap mangrove",
-                    "D. Konversi lahan mangrove untuk tambak",
-                    "E. Sebaran geografis ekosistem mangrove"
-                ],
-                correctAnswer: 2,
-                explanation: "Teks membahas dua hal utama: fungsi mangrove (sebagai buffer zone dan habitat) serta ancaman terhadap kelestariannya (alih fungsi lahan)."
-            },
-            {
-                question: "17. Kata 'buffer zone' dalam teks tersebut dapat diganti dengan istilah Indonesia yang tepat yaitu...",
-                options: [
-                    "A. Daerah terlarang",
-                    "B. Zona penyangga",
-                    "C. Kawasan lindung",
-                    "D. Wilayah transisi",
-                    "E. Area konservasi"
-                ],
-                correctAnswer: 1,
-                explanation: "'Buffer zone' paling tepat diterjemahkan sebagai 'zona penyangga' yang berarti area yang mengurangi dampak antara dua wilayah."
-            },
-            {
-                question: "18. Aspek kebahasaan yang menonjol dalam teks tersebut adalah...",
-                options: [
-                    "A. Banyak menggunakan istilah teknis",
-                    "B. Dominasi kalimat perintah",
-                    "C. Penggunaan majas personifikasi",
-                    "D. Kalimat-kalimat persuasif",
-                    "E. Pemilihan kata denotatif"
-                ],
-                correctAnswer: 0,
-                explanation: "Teks tersebut menggunakan beberapa istilah teknis seperti 'ekosistem mangrove', 'buffer zone', 'abrasi', dan 'biota laut'."
-            },
-            {
-                question: "19. Cermati kalimat berikut:<br>'Implementasi kebijakan baru itu memerlukan koordinasi lintas sektoral antara pemerintah pusat, daerah, dan pemangku kepentingan terkait.'<br>Frasa 'lintas sektoral' dalam kalimat tersebut berarti...",
-                options: [
-                    "A. Melibatkan berbagai bidang",
-                    "B. Melewati batas wilayah",
-                    "C. Mengabaikan hierarki",
-                    "D. Terfokus pada satu bidang",
-                    "E. Bersifat sementara"
-                ],
-                correctAnswer: 0,
-                explanation: "'Lintas sektoral' berarti melibatkan berbagai bidang atau sektor yang berbeda-beda."
-            },
-            {
-                question: "20. Kalimat yang menggunakan kata kerja mental adalah...",
-                options: [
-                    "A. Peneliti itu mengumpulkan data selama tiga bulan.",
-                    "B. Kami menyaksikan langsung proses pembuatannya.",
-                    "C. Ia memahami kompleksitas masalah yang dihadapi.",
-                    "D. Mereka membangun rumah dengan material lokal.",
-                    "E. Peserta mendaki gunung dengan penuh semangat."
-                ],
-                correctAnswer: 2,
-                explanation: "Kata 'memahami' merupakan kata kerja mental yang menunjukkan aktivitas kognitif, berbeda dengan kata kerja fisik pada pilihan lain."
-            },
-            {
-                question: "21. Teks berikut untuk soal nomor 21-23.<br><br>'Dalam dunia sastra, aliran realisme sosialis muncul sebagai respons terhadap kondisi masyarakat industri. Aliran ini menekankan penggambaran kehidupan kelas pekerja secara objektif, dengan tujuan menyoroti ketidakadilan sistem kapitalis.'<br><br>Gagasan utama teks tersebut adalah...",
-                options: [
-                    "A. Kritik terhadap sistem kapitalis",
-                    "B. Definisi realisme sosialis dalam sastra",
-                    "C. Perkembangan masyarakat industri",
-                    "D. Peran sastra dalam perubahan sosial",
-                    "E. Kehidupan objektif kelas pekerja"
-                ],
-                correctAnswer: 1,
-                explanation: "Gagasan utama teks adalah menjelaskan definisi atau hakikat aliran realisme sosialis dalam dunia sastra."
-            },
-            {
-                question: "22. Kata 'objektif' dalam teks tersebut bermakna...",
-                options: [
-                    "A. Berdasarkan fakta tanpa prasangka",
-                    "B. Cenderung memihak",
-                    "C. Bersifat subyektif",
-                    "D. Berdasarkan perasaan",
-                    "E. Mengandung penilaian"
-                ],
-                correctAnswer: 0,
-                explanation: "'Objektif' berarti berdasarkan fakta atau kenyataan tanpa dipengaruhi pendapat atau prasangka pribadi."
-            },
-            {
-                question: "23. Jenis teks tersebut adalah...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Narasi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 2,
-                explanation: "Teks tersebut bersifat eksposisi karena memberikan penjelasan atau pemaparan tentang suatu aliran sastra."
-            },
-            {
-                question: "24. Cermati kalimat berikut:<br>'Kreativitas bukanlah bakat bawaan melainkan keterampilan yang dapat dikembangkan melalui latihan konsisten dan pembelajaran terus-menerus.'<br>Kalimat tersebut menggunakan pola hubungan...",
-                options: [
-                    "A. Sebab-akibat",
-                    "B. Pertentangan",
-                    "C. Perbandingan",
-                    "D. Contoh",
-                    "E. Definisi"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'bukanlah...melainkan...' menunjukkan hubungan pertentangan antara dua konsep yang berlawanan."
-            },
-            {
-                question: "25. Kalimat yang mengandung kata serapan dari bahasa Arab adalah...",
-                options: [
-                    "A. Sistem zonasi sekolah menuai pro kontra.",
-                    "B. Musyawarah itu menghasilkan mufakat.",
-                    "C. Tim sedang mengkaji feasibilitas proyek.",
-                    "D. Dokter melakukan diagnosis terhadap pasien.",
-                    "E. Acara itu dihadiri oleh para elite politik."
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'musyawarah' dan 'mufakat' berasal dari bahasa Arab, sedangkan pilihan lain berasal dari bahasa Inggris atau Yunani."
-            },
-            {
-                question: "26. Teks berikut untuk soal nomor 26-28.<br><br>'Deindustrialisasi dini menjadi fenomena yang mengkhawatirkan bagi negara berkembang. Alih-alih beralih ke industri berbasis teknologi, banyak negara justru langsung melompat ke sektor jasa sebelum mencapai kemajuan industri yang memadai. Hal ini berisiko menciptakan pertumbuhan ekonomi yang rapuh.'<br><br>Istilah 'deindustrialisasi dini' dalam teks merujuk pada...",
-                options: [
-                    "A. Hilangnya industri tradisional",
-                    "B. Peralihan prematur dari industri ke jasa",
-                    "C. Kegagalan industri manufaktur",
-                    "D. Penurunan produktivitas industri",
-                    "E. Ketergantungan pada teknologi asing"
-                ],
-                correctAnswer: 1,
-                explanation: "'Deindustrialisasi dini' merujuk pada peralihan prematur (terlalu cepat) dari sektor industri ke sektor jasa sebelum industri mencapai tingkat perkembangan yang memadai."
-            },
-            {
-                question: "27. Kata 'rapuh' dalam teks tersebut digunakan dengan makna...",
-                options: [
-                    "A. Fisik yang mudah patah",
-                    "B. Tidak memiliki dasar kuat",
-                    "C. Bersifat sementara",
-                    "D. Pertumbuhan lambat",
-                    "E. Ketergantungan tinggi"
-                ],
-                correctAnswer: 1,
-                explanation: "Dalam konteks ekonomi, 'rapuh' berarti tidak memiliki dasar atau fondasi yang kuat, mudah terguncang oleh perubahan."
-            },
-            {
-                question: "28. Jenis argumen yang digunakan dalam teks tersebut adalah...",
-                options: [
-                    "A. Argumentasi sebab-akibat",
-                    "B. Argumentasi contoh",
-                    "C. Argumentasi perbandingan",
-                    "D. Argumentasi definisi",
-                    "E. Argumentasi otoritas"
-                ],
-                correctAnswer: 0,
-                explanation: "Teks menggunakan argumentasi sebab-akibat dengan menunjukkan bahwa deindustrialisasi dini (sebab) berisiko menciptakan pertumbuhan ekonomi rapuh (akibat)."
-            },
-            {
-                question: "29. Cermati kalimat berikut:<br>'Reformasi birokrasi, yang telah digulirkan sejak satu dekade lalu, belum menunjukkan hasil yang signifikan dalam meningkatkan pelayanan publik.'<br>Klausa relatif dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Reformasi birokrasi",
-                    "B. yang telah digulirkan",
-                    "C. sejak satu dekade lalu",
-                    "D. belum menunjukkan hasil",
-                    "E. dalam meningkatkan pelayanan"
-                ],
-                correctAnswer: 1,
-                explanation: "Klausa relatif adalah 'yang telah digulirkan' karena berfungsi menerangkan kata 'reformasi birokrasi'."
-            },
-            {
-                question: "30. Kalimat yang menggunakan majas litotes adalah...",
-                options: [
-                    "A. Suaranya menggema memecah kesunyian malam.",
-                    "B. Hadiah ini tidak seberapa dibanding jasamu.",
-                    "C. Waktunya berlari seperti anak panah yang melesat.",
-                    "D. Langit menangis menyambut kedukaan itu.",
-                    "E. Petir bersahutan menyambar-nyambar."
-                ],
-                correctAnswer: 1,
-                explanation: "Kalimat 'Hadiah ini tidak seberapa' merupakan litotes yang merendahkan keadaan sebenarnya untuk maksud tertentu (biasanya untuk merendah)."
-            },
-            {
-                question: "31. Teks berikut untuk soal nomor 31-33.<br><br>'Pluralisme budaya bukan sekadar pengakuan terhadap keberagaman, melainkan juga penghargaan aktif terhadap perbedaan. Dalam masyarakat plural, interaksi antarkelompok tidak boleh terjebak dalam toleransi pasif yang hanya bersifat koeksistensi tanpa dialog.'<br><br>Gagasan utama teks tersebut adalah...",
-                options: [
-                    "A. Definisi toleransi pasif",
-                    "B. Hakikat pluralisme budaya yang sejati",
-                    "C. Pentingnya koeksistensi dalam masyarakat",
-                    "D. Bentuk-bentuk pengakuan keberagaman",
-                    "E. Dinamika interaksi antarkelompok"
-                ],
-                correctAnswer: 1,
-                explanation: "Gagasan utama teks adalah menjelaskan hakikat pluralisme budaya yang sejati yang melampaui sekadar pengakuan menuju penghargaan aktif."
-            },
-            {
-                question: "32. Istilah 'koeksistensi' dalam teks tersebut berarti...",
-                options: [
-                    "A. Kerja sama erat",
-                    "B. Hidup berdampingan",
-                    "C. Asimilasi budaya",
-                    "D. Konflik tersembunyi",
-                    "E. Dominasi satu kelompok"
-                ],
-                correctAnswer: 1,
-                explanation: "'Koeksistensi' berarti hidup berdampingan secara damai antara kelompok yang berbeda."
-            },
-            {
-                question: "33. Jenis teks tersebut adalah...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Narasi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 3,
-                explanation: "Teks tersebut bersifat argumentasi karena memaparkan pendapat tentang bagaimana pluralisme budaya seharusnya dipahami."
-            },
-            {
-                question: "34. Cermati kalimat berikut:<br>'Implementasi kebijakan tersebut, meskipun telah melalui kajian mendalam, tetap menuai kritik dari berbagai pihak.'<br>Kata 'meskipun' dalam kalimat tersebut menunjukkan hubungan...",
-                options: [
-                    "A. Sebab-akibat",
-                    "B. Pertentangan",
-                    "C. Waktu",
-                    "D. Tujuan",
-                    "E. Syarat"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'meskipun' menunjukkan hubungan pertentangan antara dua keadaan yang berlawanan."
-            },
-            {
-                question: "35. Kalimat yang mengandung kata bermakna konotasi positif adalah...",
-                options: [
-                    "A. Kebijakan kontroversial itu menuai kecaman.",
-                    "B. Anak itu dikenal sebagai bintang kelas.",
-                    "C. Proyek mangkrak itu menjadi masalah.",
-                    "D. Aksi protes itu berujung ricuh.",
-                    "E. Kasus korupsi itu merugikan negara."
-                ],
-                correctAnswer: 1,
-                explanation: "Frasa 'bintang kelas' memiliki konotasi positif yang berarti siswa terbaik atau menonjol di kelasnya."
-            },
-            {
-                question: "36. Teks berikut untuk soal nomor 36-38.<br><br>'Posmodernisme dalam arsitektur menolak keseragaman gaya modern yang kaku. Aliran ini mencampurkan unsur-unsur historis dengan kontemporer, seringkali dengan sentuhan ironi atau paradoks. Kritikus menyebutnya sebagai eklektisisme tanpa prinsip, sementara pendukungnya melihatnya sebagai pembebasan dari dogma modernis.'<br><br>Konflik yang tergambar dalam teks tersebut adalah...",
-                options: [
-                    "A. Antara arsitektur modern dan kontemporer",
-                    "B. Antara kritikus dan arsitek posmodern",
-                    "C. Antara keseragaman dan keberagaman",
-                    "D. Antara pandangan kritikus dan pendukung posmodernisme",
-                    "E. Antara unsur historis dan kontemporer"
-                ],
-                correctAnswer: 3,
-                explanation: "Konflik dalam teks adalah antara pandangan kritikus yang menilai posmodernisme sebagai eklektisisme tanpa prinsip dan pendukung yang melihatnya sebagai pembebasan kreatif."
-            },
-            {
-                question: "37. Istilah 'eklektisisme' dalam teks tersebut berarti...",
-                options: [
-                    "A. Penggunaan satu gaya secara murni",
-                    "B. Penolakan terhadap unsur historis",
-                    "C. Pencampuran berbagai gaya berbeda",
-                    "D. Peniruan gaya masa lalu",
-                    "E. Penciptaan gaya baru yang radikal"
-                ],
-                correctAnswer: 2,
-                explanation: "'Eklektisisme' berarti praktik meminjam atau mengombinasikan berbagai gaya atau ide yang berbeda-beda."
-            },
-            {
-                question: "38. Aspek kebahasaan yang menonjol dalam teks tersebut adalah...",
-                options: [
-                    "A. Penggunaan istilah teknis arsitektur",
-                    "B. Kalimat-kalimat persuasif",
-                    "C. Majas hiperbola yang dominan",
-                    "D. Bahasa figuratif yang kompleks",
-                    "E. Kalimat langsung banyak digunakan"
-                ],
-                correctAnswer: 0,
-                explanation: "Teks tersebut menggunakan beberapa istilah teknis arsitektur seperti 'posmodernisme', 'modern', 'eklektisisme', dan 'dogma modernis'."
-            },
-            {
-                question: "39. Cermati kalimat berikut:<br>'Digitalisasi arsip, yang telah dimulai sejak lima tahun lalu, kini menunjukkan hasil signifikan dalam efisiensi penyimpanan dan kecepatan akses data.'<br>Frasa 'hasil signifikan' dalam kalimat tersebut dapat diganti dengan...",
-                options: [
-                    "A. Keuntungan besar",
-                    "B. Perubahan berarti",
-                    "C. Kemajuan pesat",
-                    "D. Manfaat nyata",
-                    "E. Dampak positif"
-                ],
-                correctAnswer: 1,
-                explanation: "'Hasil signifikan' paling tepat diganti dengan 'perubahan berarti' yang menunjukkan dampak yang penting dan dapat diamati."
-            },
-            {
-                question: "40. Kalimat yang menggunakan kata kerja imperatif adalah...",
-                options: [
-                    "A. Penelitian itu menghasilkan temuan baru.",
-                    "B. Mereka sedang menganalisis data terkini.",
-                    "C. Bacalah instruksi dengan saksama sebelum mulai.",
-                    "D. Acara itu akan dimulai pukul delapan.",
-                    "E. Kami telah menyelesaikan proyek tepat waktu."
-                ],
-                correctAnswer: 2,
-                explanation: "Kalimat 'Bacalah instruksi...' menggunakan kata kerja imperatif yang bersifat memerintah atau memberi instruksi."
-            },
-            {
-                question: "41. Teks berikut untuk soal nomor 41-43.<br><br>'Pembelajaran berdiferensiasi adalah pendekatan yang mengakomodasi keragaman kebutuhan belajar siswa. Guru merancang aktivitas berbeda berdasarkan kesiapan, minat, dan profil belajar peserta didik. Meski menantang dalam penerapannya, metode ini dianggap lebih adil daripada pengajaran satu untuk semua.'<br><br>Inti dari pendekatan pembelajaran berdiferensiasi adalah...",
-                options: [
-                    "A. Penyamaan kemampuan semua siswa",
-                    "B. Penyesuaian dengan keragaman kebutuhan belajar",
-                    "C. Penggunaan teknologi dalam pembelajaran",
-                    "D. Peningkatan kuantitas materi ajar",
-                    "E. Penyederhanaan kurikulum"
-                ],
-                correctAnswer: 1,
-                explanation: "Inti pembelajaran berdiferensiasi adalah penyesuaian proses pembelajaran dengan keragaman kebutuhan belajar siswa, seperti disebutkan di kalimat pertama."
-            },
-            {
-                question: "42. Kata 'mengakomodasi' dalam teks tersebut bermakna...",
-                options: [
-                    "A. Menolak",
-                    "B. Menyederhanakan",
-                    "C. Menampung/memenuhi",
-                    "D. Mengurangi",
-                    "E. Membatasi"
-                ],
-                correctAnswer: 2,
-                explanation: "'Mengakomodasi' berarti menampung atau memenuhi berbagai kebutuhan yang berbeda-beda."
-            },
-            {
-                question: "43. Jenis teks tersebut adalah...",
-                options: [
-                    "A. Deskripsi",
-                    "B. Narasi",
-                    "C. Eksposisi",
-                    "D. Argumentasi",
-                    "E. Persuasi"
-                ],
-                correctAnswer: 2,
-                explanation: "Teks tersebut bersifat eksposisi karena memaparkan penjelasan tentang suatu konsep atau metode pembelajaran."
-            },
-            {
-                question: "44. Cermati kalimat berikut:<br>'Kreativitas bukanlah bakat bawaan melainkan keterampilan yang dapat dikembangkan melalui latihan konsisten dan pembelajaran terus-menerus.'<br>Kalimat tersebut menggunakan pola hubungan...",
-                options: [
-                    "A. Sebab-akibat",
-                    "B. Pertentangan",
-                    "C. Perbandingan",
-                    "D. Contoh",
-                    "E. Definisi"
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'bukanlah...melainkan...' menunjukkan hubungan pertentangan antara dua konsep yang berlawanan."
-            },
-            {
-                question: "45. Kalimat yang mengandung kata serapan dari bahasa Sanskerta adalah...",
-                options: [
-                    "A. Agenda rapat sudah disusun dengan rapi.",
-                    "B. Hakikat pendidikan adalah memanusiakan manusia.",
-                    "C. Standardisasi produk terus ditingkatkan.",
-                    "D. Tim sedang melakukan evaluasi program.",
-                    "E. Dokumen itu sudah diverifikasi kebenarannya."
-                ],
-                correctAnswer: 1,
-                explanation: "Kata 'hakikat' berasal dari bahasa Sanskerta, sedangkan pilihan lain berasal dari bahasa Inggris atau Latin."
-            },
-            {
-                question: "46. Teks berikut untuk soal nomor 46-48.<br><br>'Antroposentrisme, pandangan yang menempatkan manusia sebagai pusat alam semesta, sering dituding sebagai akar krisis ekologis. Paradigma ini dianggap mengabaikan keterkaitan ekosistem dan mendorong eksploitasi alam tanpa batas. Sebagai alternatif, muncul pemikiran ekosentris yang menekankan keseimbangan seluruh komponen biosfer.'<br><br>Pertentangan ide dalam teks tersebut adalah antara...",
-                options: [
-                    "A. Manusia dan alam",
-                    "B. Antroposentrisme dan ekosentrisme",
-                    "C. Eksploitasi dan konservasi",
-                    "D. Krisis ekologis dan solusinya",
-                    "E. Paradigma lama dan baru"
-                ],
-                correctAnswer: 1,
-                explanation: "Pertentangan ide dalam teks adalah antara pandangan antroposentris (manusia sebagai pusat) dan ekosentris (keseimbangan seluruh biosfer)."
-            },
-            {
-                question: "47. Istilah 'biosfer' dalam teks tersebut merujuk pada...",
-                options: [
-                    "A. Lapisan atmosfer bumi",
-                    "B. Seluruh kehidupan di bumi",
-                    "C. Sistem sosial manusia",
-                    "D. Lingkungan buatan manusia",
-                    "E. Sumber daya alam"
-                ],
-                correctAnswer: 1,
-                explanation: "'Biosfer' merujuk pada seluruh kehidupan dan ekosistem di bumi, termasuk interaksi antara organisme dan lingkungannya."
-            },
-            {
-                question: "48. Jenis argumen yang digunakan dalam teks tersebut adalah...",
-                options: [
-                    "A. Argumentasi perbandingan",
-                    "B. Argumentasi sebab-akibat",
-                    "C. Argumentasi contoh",
-                    "D. Argumentasi definisi",
-                    "E. Argumentasi otoritas"
-                ],
-                correctAnswer: 0,
-                explanation: "Teks menggunakan argumentasi perbandingan dengan membandingkan dua paradigma yang berlawanan (antroposentris vs ekosentris)."
-            },
-            {
-                question: "49. Cermati kalimat berikut:<br>'Revolusi Industri 4.0, yang ditandai dengan integrasi teknologi digital dan fisik, telah mengubah lanskap dunia kerja secara fundamental.'<br>Klausa relatif dalam kalimat tersebut adalah...",
-                options: [
-                    "A. Revolusi Industri 4.0",
-                    "B. yang ditandai dengan integrasi",
-                    "C. teknologi digital dan fisik",
-                    "D. telah mengubah lanskap",
-                    "E. dunia kerja secara fundamental"
-                ],
-                correctAnswer: 1,
-                explanation: "Klausa relatif adalah 'yang ditandai dengan integrasi' karena berfungsi menerangkan 'Revolusi Industri 4.0'."
-            },
-            {
-                question: "50. Kalimat yang menggunakan majas hiperbola adalah...",
-                options: [
-                    "A. Suaranya menggelegar membelah angkasa.",
-                    "B. Waktu berjalan seperti air yang mengalir.",
-                    "C. Pikirannya setajam pisau bedah.",
-                    "D. Kerjanya lambat seperti kura-kura.",
-                    "E. Hatinya seputih salju di musim dingin."
-                ],
-                correctAnswer: 0,
-                explanation: "Kalimat 'Suaranya menggelegar membelah angkasa' merupakan hiperbola karena melebih-lebihkan kenyataan untuk menciptakan kesan mendalam."
-            }
+                        question: "Kalimat yang mengandung majas litotes adalah...",
+                        options: [
+                            "A. Hadiah ini hanyalah secuil tanda terima kasihku.",
+                            "B. Suaranya menggelegar membelah angkasa.",
+                            "C. Wajahnya bersinar bagai bulan purnama.",
+                            "D. Dia adalah bintang kelas di sekolahnya.",
+                            "E. Keringatnya bercucuran seperti air terjun."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "'Hanyalah secuil tanda terima kasihku' adalah contoh majas litotes, yaitu merendahkan diri meskipun kenyataannya tidak demikian."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'apabila' dengan tepat adalah...",
+                        options: [
+                            "A. Apabila hujan turun, kami akan membatalkan acara.",
+                            "B. Apabila kamu rajin belajar, pasti akan berhasil.",
+                            "C. Apabila tidak ada aral melintang, kami akan datang.",
+                            "D. Apabila persyaratan sudah lengkap, berkas bisa segera diproses.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'apabila' dengan tepat untuk menyatakan syarat."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks argumentasi adalah...",
+                        options: [
+                            "A. Merokok dapat menyebabkan berbagai penyakit berbahaya seperti kanker paru-paru.",
+                            "B. Gunung Bromo adalah salah satu destinasi wisata populer di Jawa Timur.",
+                            "C. Proses pembuatan batik tulis membutuhkan ketelitian tinggi.",
+                            "D. Harimau Sumatra termasuk hewan yang dilindungi karena populasinya menurun.",
+                            "E. Pantai Pangandaran terkenal dengan sunset-nya yang indah."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Merokok dapat menyebabkan berbagai penyakit berbahaya seperti kanker paru-paru.' adalah contoh teks argumentasi karena berisi pendapat yang didukung alasan."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'meskipun' dengan tepat adalah...",
+                        options: [
+                            "A. Meskipun hujan turun, kami tetap melanjutkan perjalanan.",
+                            "B. Dia tetap tersenyum meskipun hatinya sedih.",
+                            "C. Meskipun sudah larut malam, ayah masih bekerja.",
+                            "D. Kami tetap berangkat meskipun cuaca buruk.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'meskipun' dengan tepat untuk menyatakan pertentangan."
+                    },
+                    {
+                        question: "Kalimat yang mengandung kata serapan dari bahasa Arab adalah...",
+                        options: [
+                            "A. Masalah itu harus diselesaikan dengan bijaksana.",
+                            "B. Kita harus memiliki akhlak yang mulia.",
+                            "C. Dalam rapat itu dibahas beberapa isu penting.",
+                            "D. Dokter memberikan resep obat untuk pasiennya.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 1,
+                        explanation: "Kata 'akhlak' berasal dari bahasa Arab 'akhlaq'. Kata lainnya berasal dari bahasa Sanskerta atau Latin."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks eksplanasi adalah...",
+                        options: [
+                            "A. Gempa bumi terjadi karena pergeseran lempeng bumi.",
+                            "B. Sebaiknya kita mulai membiasakan hidup sehat.",
+                            "C. Museum Nasional menyimpan berbagai artefak bersejarah.",
+                            "D. Pemandangan alam di Bali sangat memesona.",
+                            "E. Aku masih ingat kejadian itu dengan jelas."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Gempa bumi terjadi karena pergeseran lempeng bumi.' adalah contoh teks eksplanasi karena menjelaskan proses terjadinya suatu fenomena."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'sebab' dengan tepat adalah...",
+                        options: [
+                            "A. Dia tidak masuk sekolah sebab sedang sakit.",
+                            "B. Sebab musabab kejadian itu masih diselidiki.",
+                            "C. Kami membatalkan acara sebab cuaca buruk.",
+                            "D. Sebab utama kebakaran itu adalah korsleting listrik.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'sebab' dengan tepat untuk menyatakan alasan."
+                    },
+                    {
+                        question: "Kalimat yang mengandung kata berimbuhan meN-kan yang tepat adalah...",
+                        options: [
+                            "A. Ibu memasakkan ayah nasi goreng.",
+                            "B. Guru menjelaskan materi pelajaran dengan jelas.",
+                            "C. Ayah mengantarkan adik ke sekolah.",
+                            "D. Kakak membelikan ibu oleh-oleh dari Bandung.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata berimbuhan meN-kan dengan tepat. Imbuhan meN-kan dapat berarti membuat jadi (memasakkan), melakukan untuk orang lain (mengantarkan, membelikan), atau menyebabkan (menjelaskan)."
+                    },
+                    {
+                        question: "Kalimat yang merupakan contoh teks prosedur adalah...",
+                        options: [
+                            "A. Pertama, siapkan bahan-bahan yang diperlukan.",
+                            "B. Gunung Rinjani terletak di Pulau Lombok.",
+                            "C. Pendidikan adalah kunci kemajuan bangsa.",
+                            "D. Pemandangan pantai ini sangat menakjubkan.",
+                            "E. Dia adalah siswa terpandai di kelasnya."
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Kalimat 'Pertama, siapkan bahan-bahan yang diperlukan.' adalah contoh teks prosedur karena berisi langkah-langkah melakukan sesuatu."
+                    },
+                    {
+                        question: "Kalimat yang menggunakan kata 'sedangkan' dengan tepat adalah...",
+                        options: [
+                            "A. Adik suka buah apel, sedangkan aku lebih suka jeruk.",
+                            "B. Ayah pergi ke kantor, sedangkan ibu di rumah saja.",
+                            "C. Kami belajar kelompok, sedangkan mereka bermain.",
+                            "D. Hujan turun dengan deras, sedangkan kami tidak membawa payung.",
+                            "E. Semua jawaban benar"
+                        ],
+                        correctAnswer: 4,
+                        explanation: "Semua kalimat menggunakan kata 'sedangkan' dengan tepat untuk menyatakan perbandingan atau pertentangan antara dua hal."
+                    }
                 ]
             }
         };
@@ -3285,10 +1867,10 @@
         const MOTIVATIONAL_MESSAGES = {
             '90-100': 'Sempurna! Anda sangat luar biasa dalam menguasai materi Bahasa Indonesia. Pertahankan prestasi ini.',
             '80-89': 'Hasil yang sangat baik! Anda telah menunjukkan pemahaman yang mendalam tentang Bahasa Indonesia.',
-            '70-79': 'Kerja bagus! Anda memiliki pemahaman yang baik tentang materi Bahasa Indonesia.',
+            '70-79': 'Kerja bagus! Anda memiliki pemahaman yang baik tentang materi Bahasa Indonesia ini.',
             '60-69': 'Hasil yang cukup baik. Tingkatkan lagi pemahaman Anda untuk hasil yang lebih baik.',
-            '50-59': 'Anda sudah memahami dasar-dasarnya. Terus berlatih untuk meningkatkan pemahaman Bahasa Indonesia.',
-            '0-49': 'Jangan menyerah! Gunakan hasil ini sebagai motivasi untuk belajar lebih giat lagi dalam Bahasa Indonesia.'
+            '50-59': 'Anda sudah memahami dasar-dasarnya. Terus berlatih untuk meningkatkan kemampuan berbahasa.',
+            '0-49': 'Jangan menyerah! Gunakan hasil ini sebagai motivasi untuk belajar Bahasa Indonesia lebih giat lagi.'
         };
         
         // Initialize the application
@@ -3509,7 +2091,7 @@
                 radio.addEventListener('change', showGradeSelection);
             });
             
-            document.getElementById('save-participant-btn').addEventListener('click', startExam);
+            document.getElementById('save-participant-btn').addEventListener('click', validateAndStartExam);
             document.getElementById('finish-exam-btn').addEventListener('click', finishExam);
             document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
             document.getElementById('unanswered-btn').addEventListener('click', showUnansweredQuestions);
@@ -3531,22 +2113,49 @@
             document.getElementById('fullname').addEventListener('input', function() {
                 // Convert input to uppercase automatically
                 this.value = this.value.toUpperCase();
+                validateField(this, 'fullname-error', /^[A-Za-z ]+$/, "Nama lengkap harus diisi dan hanya boleh mengandung huruf");
                 checkParticipantFormValidity();
             });
             
-            document.getElementById('school-name').addEventListener('input', checkParticipantFormValidity);
-            document.getElementById('student-id').addEventListener('input', checkParticipantFormValidity);
+            document.getElementById('school-name').addEventListener('input', function() {
+                validateField(this, 'school-error', /.+/, "Nama sekolah harus diisi");
+                checkParticipantFormValidity();
+            });
+            
+            document.getElementById('student-id').addEventListener('input', function() {
+                validateField(this, 'nis-error', /^[0-9]+$/, "NIS harus diisi dan hanya boleh mengandung angka");
+                checkParticipantFormValidity();
+            });
+            
             document.querySelectorAll('input[name="purpose"]').forEach(radio => {
-                radio.addEventListener('change', checkParticipantFormValidity);
+                radio.addEventListener('change', function() {
+                    document.getElementById('purpose-error').style.display = 'none';
+                    document.getElementById('purpose-radio-group').classList.remove('radio-group-error');
+                    checkParticipantFormValidity();
+                });
             });
+            
             document.querySelectorAll('input[name="level"]').forEach(radio => {
-                radio.addEventListener('change', checkParticipantFormValidity);
+                radio.addEventListener('change', function() {
+                    document.getElementById('level-error').style.display = 'none';
+                    document.getElementById('level-radio-group').classList.remove('radio-group-error');
+                    checkParticipantFormValidity();
+                });
             });
+            
             document.querySelectorAll('input[name="grade"]').forEach(radio => {
-                radio.addEventListener('change', checkParticipantFormValidity);
+                radio.addEventListener('change', function() {
+                    document.getElementById('grade-error').style.display = 'none';
+                    checkParticipantFormValidity();
+                });
             });
+            
             document.querySelectorAll('input[name="subject"]').forEach(radio => {
-                radio.addEventListener('change', checkParticipantFormValidity);
+                radio.addEventListener('change', function() {
+                    document.getElementById('subject-error').style.display = 'none';
+                    document.getElementById('subject-radio-group').classList.remove('radio-group-error');
+                    checkParticipantFormValidity();
+                });
             });
 
             // Admin panel toggle switches
@@ -3567,6 +2176,9 @@
             document.getElementById('edit-selected-participants').addEventListener('click', editSelectedParticipants);
             document.getElementById('delete-selected-participants').addEventListener('click', deleteSelectedParticipants);
             document.getElementById('validate-certificate-btn').addEventListener('click', validateCertificate);
+            document.getElementById('export-csv-btn').addEventListener('click', exportToCSV);
+            document.getElementById('export-json-btn').addEventListener('click', exportToJSON);
+            document.getElementById('export-excel-btn').addEventListener('click', exportToExcel);
             
             // Search functionality
             document.getElementById('participant-search').addEventListener('input', searchParticipants);
@@ -3580,9 +2192,6 @@
                 radio.addEventListener('change', showEditGradeSelection);
             });
             
-            // Load participants data for admin panel
-            loadParticipantsData();
-            
             // Auto uppercase for edit fullname field
             document.getElementById('edit-fullname').addEventListener('input', function() {
                 this.value = this.value.toUpperCase();
@@ -3593,13 +2202,6 @@
         function loadAdminSettings() {
             // Load exam duration
             document.getElementById('exam-duration').value = adminSettings.examDuration;
-            
-            // Load question count
-            document.getElementById('question-count').value = adminSettings.questionCount;
-            
-            // Load randomize questions setting
-            document.getElementById('randomize-questions').checked = adminSettings.randomizeQuestions;
-            document.getElementById('randomize-status').textContent = adminSettings.randomizeQuestions ? 'Aktif' : 'Nonaktif';
             
             // Load greeting message
             document.getElementById('greeting-message-input').value = adminSettings.greetingMessage;
@@ -3616,11 +2218,11 @@
         }
         
         function saveParticipantsData() {
-            localStorage.setItem('participantsData', JSON.stringify(participantsData));
+            localStorage.setItem('pergunuParticipantsData', JSON.stringify(participantsData));
         }
         
         function saveAdminSettings() {
-            localStorage.setItem('adminSettings', JSON.stringify(adminSettings));
+            localStorage.setItem('pergunuAdminSettings', JSON.stringify(adminSettings));
         }
         
         function handleLogin() {
@@ -3720,42 +2322,92 @@
             container.appendChild(radioLabel);
         }
         
+        function validateField(field, errorId, pattern, errorMessage) {
+            const errorElement = document.getElementById(errorId);
+            
+            if (!field.value.trim() || !pattern.test(field.value.trim())) {
+                field.classList.add('input-error');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                field.classList.remove('input-error');
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+        
         function checkParticipantFormValidity() {
             let isValid = true;
             
-            // Check common fields
-            const fullname = document.getElementById('fullname').value.trim();
-            if (!fullname || !/^[A-Za-z ]+$/.test(fullname)) {
+            // Validate fullname
+            const fullname = document.getElementById('fullname');
+            if (!validateField(fullname, 'fullname-error', /^[A-Za-z ]+$/, "Nama lengkap harus diisi dan hanya boleh mengandung huruf")) {
                 isValid = false;
             }
             
-            // Check student fields
-            if (!document.getElementById('school-name').value.trim()) {
+            // Validate school name
+            const schoolName = document.getElementById('school-name');
+            if (!validateField(schoolName, 'school-error', /.+/, "Nama sekolah harus diisi")) {
                 isValid = false;
             }
             
-            const studentId = document.getElementById('student-id').value.trim();
-            if (!studentId || !/^[0-9]+$/.test(studentId)) {
+            // Validate student ID
+            const studentId = document.getElementById('student-id');
+            if (!validateField(studentId, 'nis-error', /^[0-9]+$/, "NIS harus diisi dan hanya boleh mengandung angka")) {
                 isValid = false;
             }
             
+            // Validate purpose
             if (!document.querySelector('input[name="purpose"]:checked')) {
+                document.getElementById('purpose-error').style.display = 'block';
+                document.getElementById('purpose-radio-group').classList.add('radio-group-error');
                 isValid = false;
             }
             
+            // Validate level
             if (!document.querySelector('input[name="level"]:checked')) {
+                document.getElementById('level-error').style.display = 'block';
+                document.getElementById('level-radio-group').classList.add('radio-group-error');
                 isValid = false;
             }
             
+            // Validate grade
             if (!document.querySelector('input[name="grade"]:checked')) {
+                document.getElementById('grade-error').style.display = 'block';
                 isValid = false;
             }
             
+            // Validate subject
             if (!document.querySelector('input[name="subject"]:checked')) {
+                document.getElementById('subject-error').style.display = 'block';
+                document.getElementById('subject-radio-group').classList.add('radio-group-error');
                 isValid = false;
             }
             
             document.getElementById('save-participant-btn').disabled = !isValid;
+            return isValid;
+        }
+        
+        function validateAndStartExam() {
+            if (checkParticipantFormValidity()) {
+                startExam();
+            } else {
+                // Show warning notification
+                const warning = document.getElementById('form-warning');
+                warning.style.display = 'block';
+                
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    warning.style.display = 'none';
+                }, 5000);
+                
+                // Scroll to first error
+                const firstError = document.querySelector('.input-error, .radio-group-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
         }
         
         function startExam() {
@@ -3769,22 +2421,23 @@
                 subject: document.querySelector('input[name="subject"]:checked')?.value,
                 school: document.getElementById('school-name')?.value.trim(),
                 studentId: document.getElementById('student-id')?.value.trim(),
-                examDate: new Date().toISOString()
+                examDate: new Date().toISOString(),
+                deviceInfo: getDeviceInfo()
             };
             
             // Load questions based on level - hanya Bahasa Indonesia
             if (participantData.level && QUESTION_BANK[participantData.level]['Bahasa Indonesia']) {
-                questions = QUESTION_BANK[participantData.level]['Bahasa Indonesia'];
+                // Acak urutan soal
+                const originalQuestions = QUESTION_BANK[participantData.level]['Bahasa Indonesia'];
+                questions = shuffleArray(originalQuestions);
+                
+                // Simpan urutan soal yang diacak
+                questionOrder = questions.map((_, index) => index);
             } else {
-                // Default questions
-                questions = QUESTION_BANK['SD']['Bahasa Indonesia'];
-            }
-            
-            // Randomize questions if setting is enabled
-            if (adminSettings.randomizeQuestions) {
-                questions = shuffleArray(questions).slice(0, adminSettings.questionCount);
-            } else {
-                questions = questions.slice(0, adminSettings.questionCount);
+                // Default questions (SD)
+                const originalQuestions = QUESTION_BANK['SD']['Bahasa Indonesia'];
+                questions = shuffleArray(originalQuestions);
+                questionOrder = questions.map((_, index) => index);
             }
             
             // Initialize exam data
@@ -3818,6 +2471,28 @@
             }, 500);
         }
         
+        // Fungsi untuk mendapatkan informasi perangkat
+        function getDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let deviceType = 'Desktop';
+            
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+                deviceType = 'Mobile';
+            } else if (/Tablet|iPad/i.test(userAgent)) {
+                deviceType = 'Tablet';
+            }
+            
+            return {
+                deviceType: deviceType,
+                userAgent: userAgent,
+                screenWidth: window.screen.width,
+                screenHeight: window.screen.height,
+                platform: navigator.platform,
+                language: navigator.language
+            };
+        }
+        
+        // Fungsi untuk mengacak array (Fisher-Yates algorithm)
         function shuffleArray(array) {
             const newArray = [...array];
             for (let i = newArray.length - 1; i > 0; i--) {
@@ -3895,8 +2570,9 @@
             currentQuestionIndex = index;
             const question = questions[index];
             
-            // Update question text
-            document.getElementById('question-text').textContent = `Soal ${index + 1}: ${question.question}`;
+            // Update question text (tampilkan nomor urut asli dari questionOrder)
+            const originalQuestionNumber = questionOrder[index] + 1;
+            document.getElementById('question-text').textContent = `Soal ${originalQuestionNumber}: ${question.question}`;
             
             // Clear previous image if exists
             const imageContainer = document.getElementById('question-image-container');
@@ -4004,7 +2680,7 @@
             }
         }
         
-        function finishExam() {
+        async function finishExam() {
             clearInterval(examTimer);
             
             // Calculate unanswered questions
@@ -4013,16 +2689,56 @@
             // Generate certificate code
             const certificateCode = generateUniqueCode();
             
-            // Add participant to data store
+            // Calculate score
             const score = Math.round((examData.correct / questions.length) * 100);
-            participantsData.push({
+            
+            // Add participant to data store
+            const participantRecord = {
                 ...participantData,
                 score: score,
                 examDate: new Date().toISOString(),
-                certificateCode: certificateCode
-            });
-            saveParticipantsData();
+                certificateCode: certificateCode,
+                answers: examData.answers,
+                questions: questions.map((q, i) => ({
+                    question: q.question,
+                    selectedAnswer: examData.answers[i],
+                    correctAnswer: q.correctAnswer,
+                    explanation: q.explanation
+                })),
+                deviceInfo: participantData.deviceInfo,
+                totalQuestions: questions.length,
+                correctAnswers: examData.correct,
+                wrongAnswers: examData.wrong,
+                unanswered: examData.unanswered
+            };
             
+            // Simpan ke Google Sheets dan localStorage
+            try {
+                // First try to save to Google Sheets
+                const saveResult = await saveToGoogleSheets(participantRecord);
+                
+                if (saveResult.success) {
+                    // If successful, save to localStorage as well
+                    participantsData.push(participantRecord);
+                    saveParticipantsData();
+                    
+                    // Show results
+                    showResults(participantRecord, certificateCode);
+                } else {
+                    // If Google Sheets fails, fallback to localStorage
+                    console.error('Failed to save to Google Sheets:', saveResult.message);
+                    saveToLocalStorage(participantRecord);
+                    showResults(participantRecord, certificateCode);
+                }
+            } catch (error) {
+                console.error('Error saving to Google Sheets:', error);
+                // Fallback to localStorage
+                saveToLocalStorage(participantRecord);
+                showResults(participantRecord, certificateCode);
+            }
+        }
+        
+        function showResults(participantRecord, certificateCode) {
             // Hide exam screen with slide out animation
             document.getElementById('exam-screen').classList.add('slide-out');
             
@@ -4034,7 +2750,7 @@
                 currentScreen = 'results';
                 
                 // Display results
-                displayResults();
+                displayResults(participantRecord);
                 
                 // Generate certificate
                 generateCertificate(certificateCode);
@@ -4047,20 +2763,78 @@
                 certificateSound.play().catch(e => console.log("Certificate sound prevented:", e));
             }, 500);
         }
-        
-        function displayResults() {
-            document.getElementById('result-name').textContent = participantData.fullname;
+
+        // Fungsi untuk mengirim data ke Google Sheets
+        async function saveToGoogleSheets(participantData) {
+            const dataToSend = {
+                action: 'saveParticipant',
+                data: {
+                    fullname: participantData.fullname,
+                    status: participantData.status,
+                    purpose: participantData.purpose,
+                    level: participantData.level,
+                    grade: participantData.grade,
+                    subject: participantData.subject,
+                    school: participantData.school,
+                    studentId: participantData.studentId,
+                    score: participantData.score,
+                    certificateCode: participantData.certificateCode,
+                    examDate: participantData.examDate,
+                    deviceType: participantData.deviceInfo?.deviceType || 'Unknown',
+                    totalQuestions: participantData.totalQuestions,
+                    correctAnswers: participantData.correctAnswers,
+                    wrongAnswers: participantData.wrongAnswers,
+                    unanswered: participantData.unanswered
+                }
+            };
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error saving to Google Sheets:', error);
+                throw error;
+            }
+        }
+
+        function saveToLocalStorage(participantData) {
+            const participantRecord = {
+                ...participantData,
+                totalQuestions: questions.length,
+                correctAnswers: examData.correct,
+                wrongAnswers: examData.wrong,
+                unanswered: examData.unanswered
+            };
+            
+            participantsData.push(participantRecord);
+            saveParticipantsData();
+        }
+            
+        function displayResults(participantRecord) {
+            document.getElementById('result-name').textContent = participantRecord.fullname;
             document.getElementById('result-status').textContent = 'Pelajar';
-            document.getElementById('result-level').textContent = participantData.level || '-';
-            document.getElementById('result-grade').textContent = participantData.grade ? `Kelas ${participantData.grade}` : '-';
-            document.getElementById('result-subject').textContent = participantData.subject || '-';
-            document.getElementById('total-questions').textContent = questions.length;
-            document.getElementById('correct-answers').textContent = examData.correct;
-            document.getElementById('wrong-answers').textContent = examData.wrong;
-            document.getElementById('unanswered-questions').textContent = examData.unanswered;
+            document.getElementById('result-level').textContent = participantRecord.level || '-';
+            document.getElementById('result-grade').textContent = participantRecord.grade ? `Kelas ${participantRecord.grade}` : '-';
+            document.getElementById('result-subject').textContent = participantRecord.subject || '-';
+            document.getElementById('total-questions').textContent = participantRecord.totalQuestions;
+            document.getElementById('correct-answers').textContent = participantRecord.correctAnswers;
+            document.getElementById('wrong-answers').textContent = participantRecord.wrongAnswers;
+            document.getElementById('unanswered-questions').textContent = participantRecord.unanswered;
             
             // Calculate score (percentage)
-            const score = Math.round((examData.correct / questions.length) * 100);
+            const score = Math.round((participantRecord.correctAnswers / participantRecord.totalQuestions) * 100);
             document.getElementById('exam-score').textContent = `${score}%`;
         }
         
@@ -4089,6 +2863,10 @@
                 }
             }
             
+            // Format NIS and school name for certificate code
+            const formattedNIS = participantData.studentId ? participantData.studentId : '0000';
+            const formattedSchool = participantData.school ? participantData.school.replace(/\s+/g, '-').toUpperCase().substring(0, 10) : 'SEKOLAH';
+            
             // Create certificate HTML
             const certificate = document.createElement('div');
             certificate.className = 'certificate';
@@ -4096,7 +2874,7 @@
             certificate.innerHTML = `
                 <div class="certificate-content">
                     <h1 class="certificate-title">SERTIFIKAT PRESTASI</h1>
-                    <p class="certificate-code">${formatName(participantData.fullname)}/PELAJAR/${participantData.level || 'UMUM'}/${participantData.subject || 'UMUM'}/${dateString}/${certificateCode}/PERGUNU-STB</p>
+                    <p class="certificate-code">${formatName(participantData.fullname)}/${formattedNIS}/${formattedSchool}/${participantData.level || 'UMUM'}/${participantData.subject || 'UMUM'}/${dateString}/${certificateCode}/PERGUNU-STB</p>
                     <p>Diberikan Kepada</p>
                     <h2 class="certificate-recipient">${formatName(participantData.fullname)}</h2>
                     <p class="certificate-body">
@@ -4104,8 +2882,8 @@
                         Ujian Bahasa Indonesia Pergunu Situbondo
                     </p>
                     <p class="certificate-body">
-                        Sebagai penghargaan atas dedikasi dalam memahami materi Bahasa Indonesia dan mengasah kemampuan berbahasa, 
-                        sertifikat ini diberikan sebagai motivasi untuk terus berkembang.
+                        Sebagai penghargaan atas dedikasi dalam memahami materi Bahasa Indonesia dan meningkatkan kemampuan berbahasa, 
+                        sertifikat ini diberikan sebagai motivasi untuk terus berkembang dalam ilmu bahasa.
                     </p>
                     <div class="certificate-score">Nilai: ${score}%</div>
                     <p class="certificate-motivation">${motivation}</p>
@@ -4211,6 +2989,8 @@
             if (code === adminSettings.adminCode) {
                 // Show admin panel content
                 document.getElementById('admin-panel-content').style.display = 'block';
+                // Load participants data
+                loadParticipantsData();
             } else {
                 alert('Kode admin salah. Silakan coba lagi.');
             }
@@ -4536,6 +3316,7 @@
                     <p>Mata Ujian: ${participant.subject || '-'}</p>
                     <p>Nilai: ${participant.score}%</p>
                     <p>Tanggal Ujian: ${new Date(participant.examDate).toLocaleDateString('id-ID')}</p>
+                    <p>Perangkat: ${participant.deviceInfo?.deviceType || 'Tidak diketahui'}</p>
                 `;
                 validationResult.style.display = 'block';
             } else {
@@ -4586,13 +3367,9 @@
         
         function saveSettings() {
             const examDuration = parseInt(document.getElementById('exam-duration').value);
-            const questionCount = parseInt(document.getElementById('question-count').value);
-            const randomizeQuestions = document.getElementById('randomize-questions').checked;
             
             // Update admin settings
             adminSettings.examDuration = examDuration;
-            adminSettings.questionCount = questionCount;
-            adminSettings.randomizeQuestions = randomizeQuestions;
             
             // Update subject toggle
             adminSettings.enabledSubjects = {
@@ -4603,6 +3380,93 @@
             saveAdminSettings();
             
             alert('Pengaturan berhasil disimpan!');
+        }
+        
+        function exportToCSV() {
+            if (participantsData.length === 0) {
+                alert('Tidak ada data peserta untuk diekspor');
+                return;
+            }
+            
+            // Create CSV header
+            let csv = 'Nama,NIS,Sekolah,Tingkat,Kelas,Subject,Nilai,Kode Sertifikat,Tanggal Ujian,Jenis Perangkat\n';
+            
+            // Add data rows
+            participantsData.forEach(participant => {
+                csv += `"${participant.fullname}","${participant.studentId || ''}","${participant.school || ''}",`;
+                csv += `"${participant.level || ''}","${participant.grade || ''}","${participant.subject || ''}",`;
+                csv += `"${participant.score}","${participant.certificateCode || ''}","${new Date(participant.examDate).toLocaleString('id-ID')}",`;
+                csv += `"${participant.deviceInfo?.deviceType || 'Tidak diketahui'}"\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `data-peserta-${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function exportToJSON() {
+            if (participantsData.length === 0) {
+                alert('Tidak ada data peserta untuk diekspor');
+                return;
+            }
+            
+            // Create JSON data
+            const jsonData = JSON.stringify(participantsData, null, 2);
+            
+            // Create download link
+            const blob = new Blob([jsonData], { type: 'application/json;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `data-peserta-${new Date().toISOString().slice(0,10)}.json`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function exportToExcel() {
+            if (participantsData.length === 0) {
+                alert('Tidak ada data peserta untuk diekspor');
+                return;
+            }
+            
+            // Prepare data for Excel
+            const excelData = [
+                ['Nama', 'NIS', 'Sekolah', 'Tingkat', 'Kelas', 'Mata Ujian', 'Nilai', 'Kode Sertifikat', 'Tanggal Ujian', 'Jenis Perangkat']
+            ];
+            
+            participantsData.forEach(participant => {
+                excelData.push([
+                    participant.fullname,
+                    participant.studentId || '',
+                    participant.school || '',
+                    participant.level || '',
+                    participant.grade || '',
+                    participant.subject || '',
+                    participant.score,
+                    participant.certificateCode || '',
+                    new Date(participant.examDate).toLocaleString('id-ID'),
+                    participant.deviceInfo?.deviceType || 'Tidak diketahui'
+                ]);
+            });
+            
+            // Create worksheet
+            const ws = XLSX.utils.aoa_to_sheet(excelData);
+            
+            // Create workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Data Peserta");
+            
+            // Export to Excel file
+            XLSX.writeFile(wb, `data-peserta-${new Date().toISOString().slice(0,10)}.xlsx`);
         }
     </script>
 </body>
